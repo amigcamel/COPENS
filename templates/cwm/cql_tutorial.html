@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load pygmentify %}
+{% block header %}{% block h1 %}CQL 簡易教學{% endblock h1 %}{% endblock header %}
+{% block content %}
+    <section>
+        <p class="errmsg">注意！此頁面仍在撰寫中，時常會有內容更新與變動，敬請見諒！</p>
+        {% pygment %}
+            <h2>基本語法</h2>
+            <h3>結構</h3>
+            <pre>
+[屬性="值"]
+            </pre>
+            <p>當然，<u>請不要以這個範例查詢</u>，請繼續往下看</p>
+            <h3>說明</h3>
+            <ol>
+                <li><code>[]</code> 中括號(brackets)內的字串會被視作CQL語法</li>
+                <li><code>屬性</code> 「屬性」可為<code>word</code>以及<code>pos</code>
+                    <ul>
+                        <li><code>word</code>代表查詢對象為「字」</li>
+                        <li><code>pos</code>代表查對象為「詞性」(part of speech)</li>
+                    </ul>
+                </li>
+                <li><code>值</code> 「值」為欲搜尋的目標</li>
+                <li><code>=</code> 「等號」為連接<code>屬性</code>與<code>值</code>的標記</li>
+                <li><code>" "</code> <code>值</code>必須以「雙引號」包起來</li> 
+                <ul>
+                    <li>您亦可用「單引號」<code>' '</code> 來包覆「值」，但單、雙引號<u>絕對不可混搭使用</u></li>
+                </ul>
+            </ol>
+            <h3>範例</h3>
+            查詢「天氣」這個字：
+            <pre>
+[word="天氣"]
+            </pre>
+            查詢詞性為"V_2"的所有字:
+            <pre>
+[pos="V_2"]
+            </pre>
+            <h3>練習</h3>
+            <p>如何找出「台大」這個字？</p>
+            <form class="pure-form" onkeypress="return event.keyCode != 13;">
+                <input type="text" id="q"><span id="result"></span>
+            </form>
+            <hr>
+            <h2>CQL常用的標記</h2>
+            <h3>說明</h3>
+            <ul>
+                <li><code>[]</code> 代表「任何一個字」</li>
+                <li><code>|</code> 代表「或」(or)</li>  
+                <li><code>?</code> <code>*</code> <code>+</code> 這些符號皆代表「重複某一個字」的意思，多與<code>[]</code>及<code>.</code>使用</li>
+                <ul>
+                    <li><code>?</code> 代表重複<u>0次</u>或<u>1次</u></li>
+                    <li><code>*</code>代表重複次數為<u>等於或大於0</u></li>
+                    <li><code>+</code>代表重複次數為<u>等於或大於1</u></li>
+                </ul>
+            </ol>
+            <h3>範例</h3>
+            <ol>
+                <li>找出出現在「今天」後面的某個字</li>
+                <pre>
+[word="今天"][]
+                </pre>
+                <li>找出「天氣」或「氣候」這兩個字</li>
+                <pre>
+[word="天氣|氣候"]
+                </pre>	
+                <li>找出「給他<u>&nbsp;&nbsp;X&nbsp;&nbsp;</u>下去」這種結構 (例：給他<u>催</u>下去)</li>
+                <ul>
+                    <li>如果<u>&nbsp;&nbsp;X&nbsp;&nbsp;</u>可以不存在（重覆0次）或可為一個字（重複1次）</li>
+                        <pre>
+[word="給他"][]?[word="下去"]
+                        </pre>
+                    <li>如果<u>&nbsp;&nbsp;X&nbsp;&nbsp;</u>可以不存在（重複0次）或大於0次</li>
+                        <pre>
+[word="給他"][]*[word="下去"]
+                        </pre>
+                    <li>如果<u>&nbsp;&nbsp;X&nbsp;&nbsp;</u>必須出現一次（重複1次）或多於一次</li>
+                        <pre>
+[word="給他"][]+[word="下去"]                    
+                        </pre>
+                </ul>
+            </ol>
+            <h3>練習</h3>
+            <p>找出「一個<u>&nbsp;&nbsp;X&nbsp;&nbsp;</u>的概念」之結構 (<u>&nbsp;&nbsp;X&nbsp;&nbsp;</u>必須出現至少一次)：</p>
+            <form class="pure-form">
+                <input class="pure-input-2-3" type="text" id="q2"><span id="result2"></span>
+            </form>
+            <hr>
+            <h2>使用「標籤」</h2>
+            <h3>說明</h3>
+            <p>利用「標籤」可以針對愈查詢的目標進行更細部的設定</p>
+            <h3>範例</h3>
+            <pre>
+a:[]b:[]c:[]
+            </pre>
+            <h3>練習</h3>
+            <p>找出「宅宅」和「它它」</p>
+            <form class="pure-form">
+                <input class="pure-input-2-3" type="text" id="q3"><span id="result3"></span>
+            </form>         
+            <hr> 
+            <h2>nCQL Project<h2>
+            <h3>說明</h3>
+            <p>nCQL代表Natural Corpus Query Language</p>
+            <h3>動機</h3>
+            <p>CQL的語法繁雜且不直覺，nCQL之誕生即為了改善該語法，讓使用者在使用上更為便利</p>
+            <h3>範例</h3>
+            <pre>
+一種x的港覺
+            </pre> 
+            <p>若是要以cql語法查詢，可能要這樣：
+            <pre>
+[word="一"][word="種"][][word="的"][word="港"][word="覺"]|[word="一"][word="種"][][word="的"][word="港覺"]|[word="一"][word="種"][][word="的港"][word="覺"]|[word="一"][word="種"][][word="的港覺"]|[word="一種"][][word="的"][word="港"][word="覺"]|[word="一種"][][word="的"][word="港覺"]|[word="一種"][][word="的港"][word="覺"]|[word="一種"][][word="的港覺"];
+            </pre>
+        {% endpygment %}
+    </section>
+{% endblock content %}
+
+{% block extra_css %}
+    <link href="{% static 'css/emacs.css' %}" media="screen" rel="stylesheet" type="text/css" />
+    <style>
+        .hl {background-color:yellow;}
+        h3 {color:#835C3B !important;}
+    </style>
+{% endblock extra_css %}
+
+{% block extra_js %}
+    <script>
+        function quiz() {
+            var res = $("#q").val()            
+            var chk = (res.match(/'/g) || []).length;
+            if (chk == 2) 
+                var res = res.replace("'", '"').replace("'", '"');
+            var ans1 = '[word="台大"]';
+        
+            if (res == ans1) $("#result").html('<img src="{% static 'img/correct.png' %}">');
+            else $("#result").html('<img src="{% static 'img/wrong.png' %}">');
+        }
+        /* q2 */
+        function quiz2() {
+            var res2 = $("#q2").val()            
+            var chk2 = (res2.match(/'/g) || []).length;
+            if (chk2 % 2 ==  0)
+                var res2 = res2.replace(/'/g, '"');
+            var ans2 = '[word="一"][word="個"][]+[word="的"][word="概念"]';
+        
+            if (res2 == ans2) $("#result2").html('<img src="{% static 'img/correct.png' %}">');
+            else $("#result2").html('<img src="{% static 'img/wrong.png' %}">');
+        }
+        /* q3 */
+        function quiz3() {
+            var res3 = $("#q3").val()            
+            var chk3 = (res3.match(/'/g) || []).length;
+            if (chk3 % 2 ==  0)
+                var res3 = res3.replace(/'/g, '"');
+            var ans3 = 'a:[word="宅|它"]b:[]::a.word=b.word';
+        
+            if (res3 == ans3) $("#result3").html('<img src="{% static 'img/correct.png' %}">');
+            else $("#result3").html('<img src="{% static 'img/wrong.png' %}">');
+        } 
+
+        $(document).ready(function () {
+            $("#q").keyup(quiz);
+            $("#q2").keyup(quiz2);
+            $("#q3").keyup(quiz3);
+        });
+    </script>
+{% endblock extra_js %}

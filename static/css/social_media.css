@@ -1,0 +1,284 @@
+/* ref:  http://codepen.io/matchboxhero/pen/wyGKf */
+/* Import icon font, I've used Entypo (http://entypo.com/) */
+@import "http://weloveiconfonts.com/api/?family=entypo";
+
+*, 
+*:before, 
+*:after {
+    box-sizing: border-box;
+}
+
+/* Add unicode symbols from the icon font */
+.icon--vimeo:before {
+    content: "\F306";
+}
+
+.icon--twitter:before {
+    content: "\F309";
+}
+
+.icon--facebook:before {
+    content: "\F30C";
+}
+
+.icon--googleplus:before {
+    content: "\F30F";
+}
+
+.icon--pintrest:before {
+    content: "\F312";
+}
+
+.icon--linkedin:before {
+    content: "\F318";
+}
+
+.icon--dribble:before {
+    content: "\F31B";
+}
+
+.icon--stumbleupon:before {
+    content: "\F31E";
+}
+
+.icon--lastfm:before {
+    content: "\F321";
+}
+
+.icon--instagram:before {
+    content: "\F32D";
+}
+
+.icon--dropbox:before {
+    content: "\F330";
+}
+
+.icon--picasa:before {
+    content: "\F345";
+}
+
+.icon--soundcloud:before {
+    content: "\F348";
+}
+
+.icon--behance:before {
+    content: "\F34E";
+}
+
+.icon--skype:before {
+    content: "\F339";
+}
+
+.icon--github:before {
+    content: "\F300";
+}
+
+.icon--flickr:before {
+    content: "\F303";
+}
+
+.icon--rdio:before {
+    content: "\F324";
+}
+
+.icon--evernote:before {
+    content: "\F333";
+}
+
+/* Social colours */
+.social__icon--vimeo {
+    background-color: #4dbfe3;
+}
+
+.social__icon--vimeo:hover {
+    background-color: #41a2c0;
+}
+
+.social__icon--twitter {
+    background-color: #32b9e7;
+}
+
+.social__icon--twitter:hover {
+    background-color: #2a9dc4;
+}
+
+.social__icon--facebook {
+    background-color: #4b70ab;
+}
+
+.social__icon--facebook:hover {
+    background-color: #3f5f91;
+}
+
+.social__icon--googleplus {
+    background-color: #fa5432;
+}
+
+.social__icon--googleplus:hover {
+    background-color: #d4472a;
+}
+
+.social__icon--pintrest {
+    background-color: #d63533;
+}
+
+.social__icon--pintrest:hover {
+    background-color: #b52d2b;
+}
+
+.social__icon--linkedin {
+    background-color: #0087be;
+}
+
+.social__icon--linkedin:hover {
+    background-color: #0072a1;
+}
+
+.social__icon--dribble {
+    background-color: #fc89b1;
+}
+
+.social__icon--dribble:hover {
+    background-color: #d67496;
+}
+
+.social__icon--stumbleupon {
+    background-color: #f15d29;
+}
+
+.social__icon--stumbleupon:hover {
+    background-color: #cc4f22;
+}
+
+.social__icon--lastfm {
+    background-color: #e42124;
+}
+
+.social__icon--lastfm:hover {
+    background-color: #c11c1e;
+}
+
+.social__icon--instagram {
+    background-color: #6291b2;
+}
+
+.social__icon--instagram:hover {
+    background-color: #537b97;
+}
+
+.social__icon--dropbox {
+    background-color: #167ab6;
+}
+
+.social__icon--dropbox:hover {
+    background-color: #12679a;
+}
+
+.social__icon--picasa {
+    background-color: #c49aca;
+}
+
+.social__icon--picasa:hover {
+    background-color: #a682ab;
+}
+
+.social__icon--soundcloud {
+    background-color: #fb740b;
+}
+
+.social__icon--soundcloud:hover {
+    background-color: #d56209;
+}
+
+.social__icon--behance {
+    background-color: #33abdb;
+}
+
+.social__icon--behance:hover {
+    background-color: #2b91ba;
+}
+
+.social__icon--skype {
+    background-color: #00aff0;
+}
+
+.social__icon--skype:hover {
+    background-color: #0094cc;
+}
+
+.social__icon--github {
+    background-color: #333333;
+}
+
+.social__icon--github:hover {
+    background-color: #2b2b2b;
+}
+
+.social__icon--flickr {
+    background-color: #333333;
+}
+
+.social__icon--flickr:hover {
+    background-color: #2b2b2b;
+}
+
+.social__icon--rdio {
+    background-color: #0086cd;
+}
+
+.social__icon--rdio:hover {
+    background-color: #0071ae;
+}
+
+.social__icon--evernote {
+    background-color: #aaca62;
+}
+
+.social__icon--evernote:hover {
+    background-color: #90ab53;
+}
+
+/* Display icons next to each other */
+.social__item {
+    display: inline-block;
+    margin-right: 0.1em;
+}
+
+/* Basic icon style */
+.icon, [class^="icon--"] {
+    -moz-osx-font-smoothing: grayscale;
+    font-family: "entypo";
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    line-height: 1;
+    text-transform: none;
+}
+
+/* Icon background */
+.social__icon, [class^="social__icon"] {
+    border-radius: 50%;
+    color: white;
+    float: left;
+    font-size: 1.4em;
+    height: 50px;
+    text-align: center;
+    text-decoration: none;
+    width: 50px;
+  
+  /* Vertical Centering */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Add padding to icons container */
+.social__container {
+    padding: 1em;
+}
+
+a[class^="social"] {color:white;}
+a[class^="social"]:link  {text-decoration: none; color: white;}
+a[class^="social"]:visited {text-decoration: none; color: white;}
+a[class^="social"]:hover {text-decoration: none; color: white;}
+a[class^="social"]:active {text-decoration: none; color: white;}

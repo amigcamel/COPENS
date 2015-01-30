@@ -1,0 +1,182 @@
+{% extends "search.html" %}
+{% load staticfiles %}
+{% load endless %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/switch.css' %}">
+<style>
+    .divtable {
+      display: table;
+      width: 100%;
+    }
+    .row {
+      display: table-row;
+    }
+    .column {
+      display: table-cell;
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+    .column span {
+      color: #FFCC00;
+    }
+    .concounter {
+      width: 5%;
+    }
+    .conleft {
+      text-align:right;
+
+    }
+    .conmid {
+      text-align:center;
+    
+    }
+    .conright {
+      text-align:left;
+    
+    }
+    .conc_corp {
+      width:10%;
+    }
+
+    a.linkback {
+      color:red;
+    }
+    a.linkback.link {
+      color:red;
+    }
+    a.linkback.visited {
+      color:red;
+    }
+    a.linkback.hover {
+      color:red;
+    }
+    a.linkback.active {
+      color:red;
+    }
+</style>
+<link rel="stylesheet" type="text/css" href="{% static 'packages/fancybox2/source/jquery.fancybox.css' %}" media="screen" />
+{% endblock %}
+
+{% block nav_con %}current{% endblock %}
+{% block header %}Concordance{% endblock %}
+{% block before_content %}
+    {% if not concform %}
+        <div class="wrapper clearfix" style="margin-top:20px;">
+            {% include 'switch.html' %}
+        </div>
+    {% endif %}
+{% endblock before_content %}
+{% block content %}
+<section id="content">
+{% if concform %}
+    <div class="grid_6">
+    <form action="{% url 'concordance' %}" method="GET" class="pure-form">{% csrf_token %}
+        {{concform.as_p}}
+    <button id="concordance" class="pure-button">送出</button>
+    </form>
+    </div>
+    <div class="grid_6">
+    <h2>不明白這些選項的意義嗎？</h2>
+    <a href="" onclick="$('.helptext').css('display', 'block');return false;" class="buttonlink entypo-lamp"> 顯示說明</a>
+    </div>
+{% else %}
+    {% if conclst %}
+    <p>共有 <u>{{conclst|length}}</u> 筆資料
+    <p>(
+    {% for corp_name, corp_num in corp_det.items %}
+    {{corp_name}}: <u>{{corp_num}}</u>&nbsp;&nbsp;
+    {% endfor %}
+    )</p>
+    
+    
+    {% if not user.is_authenticated %}
+        <div class="errmsg">*非會員只能搜索每個資料庫最多5000筆資料</div>
+    {% endif %}
+    </p> 
+    <a class="pure-button pure-button-primary" style="background-color:rgb(28, 184, 65)" href="{% url "download_conc" %}">下載 CSV</a>
+    {% if not user.is_authenticated %}
+        <div class="errmsg">*非會員只能下載前一百筆資料</div>
+    {% endif %}
+    <br><br><br>
+    {% if pos %}
+        <button id="showpos" type="button" class="pure-button pure-button-primary">Hide POS</button>
+    {% endif %}
+    {% paginate display_num conclst %}
+        <center>{% show_pages %}</center>
+        <br>
+        <div class="divtable">
+        <div class="row">
+            <div class="column"></div>
+            <div class="column conleft"><a class="pure-button" href="{% url 'cwm.views.con_align' 'left' %}">對齊左邊</a></div>
+            <div class="column"></div>
+            <div class="column conright"><a class="pure-button" href="{% url 'cwm.views.con_align' 'right' %}">對齊右邊</a></div>
+            <div class="column">語料庫</div>
+        </div>
+        {% for item in conclst %}    
+            <div class="row">
+                <div class="column concounter">{{forloop.counter}}</div>
+                <div class="column conleft">{{item.conc.0|safe}}</div>
+                <div class="column conmid"><a class="linkback fancybox fancybox.iframe" href="{% url "cwm.views.con_source" item.qpos %}">{{item.conc.1|safe}}</a></div>
+                <div class="column conright">{{item.conc.2|safe}}</div>
+                <div class="column conc_corp"><a class="fancybox" href="#inline{{forloop.counter}}" title="Meta-info"><span style="color:#0099ff">{{item.corp_name}}</span></a></div>
+    
+                <div id="inline{{forloop.counter}}" style="width:400px;display: none;">
+                    <h3>Meta-info</h3>
+                    {% if item.metainfo|length = 0 %}
+                         <p>This item does not contain any meta information.</p>
+                    {% else %}
+                        {% for k, v in item.metainfo.items %}
+                        <p>{{k}}: {{v}}</p>
+                        {% endfor %}
+                    {% endif %}               
+                </div>
+    
+            </div>
+        {% endfor %}
+        </div>
+        <br>
+        <center>{% show_pages %}</center>
+    {% else %}
+        <h2>查無資料</h2>
+    {% endif %}
+{% endif %}
+</section>
+{% endblock %}
+
+{% block extra_js %}
+
+    {% if pos %}
+        <script type="text/javascript" src="{% static 'js/pos.js' %}"></script>
+    {% endif %}
+    <script type="text/javascript" src="{% static "packages/fancybox2/source/jquery.fancybox.js" %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.fancybox').fancybox();
+    
+        $('#addon_switch').change(function() {
+            var $check = $(this);
+        
+            if ($check.prop('checked')) {
+                $('aside').fadeIn(); 
+                $('#content_wide').attr('id', 'content');
+            } else {
+                $('aside').fadeOut();
+                $('#content').attr('id', 'content_wide');
+            }
+        });
+        $('#id_sampling_num').parent().hide();
+        $('#id_sampling').change(function(){
+                if(this.checked)
+                    $('#id_sampling_num').parent().fadeIn();
+                else
+                    $('#id_sampling_num').parent().fadeOut();
+        
+            });
+
+
+
+
+
+    });
+    </script>
+{% endblock %}

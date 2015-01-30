@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block h1 %}關於COPENS{% endblock h1 %}
+{% block nav_abo %}current{% endblock nav_abo %}
+{% block content %}
+    <section>
+        <h2>COPENS是什麼？</h2>
+        <p>
+        COPENS 是 <u>C</u>orpora <u>Open</u> and <u>S</u>earch 的縮寫<br>
+        它是一個開放語料庫與搜尋工具。動態更新，自動預處理與自由標記。<br>
+        <h2>理念</h2>
+        <p>
+        隨著大數據時代的來臨以及開源精神的傳播<br>
+        語言資源應該要更容易取得<br>
+        學術研究應該是開放的、共享的<br>
+        集思廣益才會帶動語言學界以及其他領域的成長及茁壯<br>
+        學術研究亦會隨著資源的開放而更加活絡<br>
+        讓我們期待一個內容共享，工具共創，製程開放的新一代語料庫語言學。
+        </p>
+        <h2>關於Logo</h2>
+        <p>
+        在此特別感謝<a href="http://lope.linguistics.ntu.edu.tw/"><span style="color:#0099ff">LOPE實驗室</span></a>圖文創作小天才<u>呂珮瑜</u> (愛米粒) 小姐設計COPENS的Logo<br>
+        「蘿蔔」為"LOPEN"的諧音<br>
+         而COPENS又為<a href="http://lope.linguistics.ntu.edu.tw/LOPEN/"><span style="color:#0099ff">LOPEN計畫</span></a>之一子項目<br>
+         奔跑的蘿蔔象徵著年輕與活力，符合本實驗室的研究特質與精神<br>
+         地球上的"LOPE"四個字母即為本實驗室的名稱
+        
+        </p>
+        <!-- <img src="{% static 'img/lope.svg' %}" alt="logo" width=100> -->
+        <!-- 語料庫工具可以是活潑生動開放的-->
+    </section>
+{% endblock content%}
+{% block extra_css %}
+    <style>
+        p {line-height:200%; padding-left:20px;}
+    </style>
+{% endblock extra_css %}

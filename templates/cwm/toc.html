@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block h1 %}使用條款{% endblock %}
+{% block nav_toc %}current{% endblock %}
+{% block content %}
+<section>
+<p class='errmsg'>注意！本網站使用之部分資源仍受到版權保護，在使用上請特別注意!</p>
+<h2>有版權的部份</h2>
+<ol>
+    <li>中央研究院平衡語料庫 (<a href="http://www.aclclp.org.tw/doc/wlawf_agr_c.pdf" target="_blank"><span style="color:#0099ff">來源</span></a>)</li>
+    <div class="toc_strict">
+        <ol>
+            <li>中央研究院平衡語料庫詞集及詞頻統計文件內容之著作權屬原始著作人所有。</li>
+            <li>本資料庫內之部份或全部內容，及其直接衍生資料（即詞彙庫，字/詞頻統計，詞類統計，語法規律）不得包含／引用於任何商業產品中。</li> 
+            <li>本人不得將此資料庫之全部或部份移轉給第三人。</li>
+            <li>本人應用此資料庫從事學術研究而獲致成果時，應於本人所發表的論文或其他公開文件中申明誌謝 (1) 中央研究院詞庫小組，(2)中華民國計算語言學學會。</li>
+        </ol>
+    </div>
+
+    <li>台灣兒童語言語料庫 (<a href="http://taiccm.org/advanced3.html" target="_blank"><span style="color:#0099ff">來源</span></a>)</li>
+    <div class="toc_strict">
+        <ol>
+            <li>TCCM 語料庫是國科會台灣兒童語言語料庫建置計畫的工作成果</li>
+            <li>TCCM語料庫中語料僅供學術研究之用，不得有任何商業行為</li>
+            <li>未獲同意，不得將TCCM語料庫資料轉載</li>
+            <li>使用TCCM語料庫而產生任何研究成果，請在論文中以本計畫以及實際所使用的語料來源作為引文：</li>
+        </ol>
+    </div>
+</ol>
+<hr>
+<h2>其他部分</h2>
+此部分條款乃根據<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/tw/" target="_blank"><span style="color:#0099ff">creative commons</span></a>
+<h3>你可自由：</h3>
+
+<ul>
+    <li>分享 — 以任何媒介或格式重製及散布本素材</li>
+    <li>修改 — 重混、轉換本素材、及依本素材建立新素材</li>
+</ul>只要你遵守授權條款規定，授權人不能撤回你使用本素材的自由。
+
+<h3>惟需遵照下列條件:</h3>
+
+<ul>
+    <li class="by">姓名標示 — 你必須給予 適當表彰、提供指向本授權條款的連結，以及 指出（本作品的原始版本）是否已被變更。你可以任何合理方式為前述表彰，但不得以任何方式暗示授權人為你或你的使用方式背書。</li>
+    <li class="nc">非商業性 — 你不得將本素材進行商業目的之使用。</li>
+    <li class="sa">相同方式分享 — 若你重混、轉換本素材，或依本素材建立新素材，你必須依本素材的授權條款來散布你的貢獻物。</li>
+</ul>不得增加額外限制 — 你不能增設法律條款或科技措施，來限制別人依授權條款本已許可的作為。
+
+<h3>聲明</h3>
+    <p>當你使用本素材中屬於公眾領域的元素，或當法律有例外或限制條款允許你的使用，則你不需要遵守本授權條款。 未提供保證。本授權條款未必能完全提供，你預期用途所需要的所有許可。例如：形象權，隱私權、著作人格權等其他權利，可能限制你如何使用本素材。</p>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.toc_strict {
+    background-color: #f3f3f3;
+    }
+ul {
+    list-style-type: none;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    margin: 0px;
+}
+li.by {
+    background: url(http://creativecommons.org/images/deed/by.png) no-repeat left top;
+    padding: 3px 0px 3px 60px;
+    padding-bottom:20px;
+}
+li.nc {
+    background: url(http://creativecommons.org/images/deed/nc.png) no-repeat left top;
+    padding: 3px 0px 30px 60px;
+    padding-bottom:50px;
+}
+li.sa {
+    background: url(http://creativecommons.org/images/deed/sa.png) no-repeat left top;
+    padding: 3px 0px 3px 60px;
+    padding-bottom:30px;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends "search.html" %}
+{% load staticfiles %}
+{% block nav_ske %}current{% endblock %}
+{% block header %}Sketch{% endblock %}
+{% block before_content %}
+<div class="wrapper clearfix">
+    {% include 'switch.html' %}
+</div>
+{% endblock %}
+{% block content %}
+<section id="content">
+<p class="errmsg">本部分暫時僅提供「批踢踢語料庫」之資料，敬請見諒！</p>
+{% if sketchform %}
+    <form action="{% url 'sketch' %}" method="post" class="pure-form">{% csrf_token %}
+        {{sketchform.as_p}}
+        <button id="button" class="pure-button">Submit</button>
+    </form>
+{% else %}
+    {% if output %}
+        <div>
+            Query:
+            <div>
+                {{query}}
+            </div>
+            Frequency:
+            <div>
+                {{output.occ}}
+            </div>
+        </div>
+        
+        <div>
+            {% for gramrel, collst in output.collos.items %}
+            <div class="grid_4">
+                <div class="css_table">
+                <h2>{{gramrel}} ({{collst|length}})</h2>
+                    <div class="css_table">
+                        <div class="css_tr">
+                            <div class="css_td css_th">Collocates</div>
+                            <div class="css_td css_th">Frequency</div>
+                            <div class="css_td css_th">logDice</div>
+                        </div>
+                    </div>
+        
+                    <div class="tblwrp">
+                    {% for coltup in collst %}
+                    <div class="css_tr">
+                        <div class="css_td">{{coltup.0}}</div>
+                        <div class="css_td">{{coltup.1}}</div>
+                        <div class="css_td">{{coltup.2|floatformat:4}}</div>
+                    </div>
+                  {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    {% else %}
+        <h3>查無資料</h3>
+    {% endif %}
+{% endif %}
+
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/switch.css' %}">
+
+<style>
+  .tblwrp {
+    overflow:scroll;
+    height: 400px;
+}
+.css_table {
+    display:table;
+    padding: 2px;
+}
+.css_tr {
+    display: table-row;
+}
+.css_td {
+    display: table-cell;
+    width: 130px;
+}
+.css_th {font-weight: 900; color:gray;}
+h2 {text-align:center; background-color:#F5F5F5;}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+    <script type="text/javascript">
+        $('#addon_switch').change(function() {
+            var $check = $(this);
+        
+            if ($check.prop('checked')) {
+                $('aside').fadeIn(); 
+                $('#content_wide').attr('id', 'content');
+            } else {
+                $('aside').fadeOut();
+                $('#content').attr('id', 'content_wide');
+            }
+        });
+    </script>
+{% endblock %}

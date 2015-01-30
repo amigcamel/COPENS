@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block nav_sea %}current{% endblock %}
+
+{% block h1 %}
+{% if form %}
+    <form action="{% url 'search' %}" method="post">{% csrf_token %}
+        <div class='errmsg'>{{ form.query.errors.as_text}}</div>
+        <div>{{ form.query }}
+            <input id="namanyay-search-btn" value="Go" type="submit"/>
+            <br>
+            <div style="font-size:13px;color:#0099ff">若要使用CQL，請在開頭輸入"cql:"，例：cql:[word="台大"]
+             （有關CQL，請參見本頁下方）</div>
+        </div>
+        <br>
+        {% for cat, corps in CHOICE%}
+            <div id="id_ch_{{forloop.counter}}" class="choice">
+            <label><input class="check_{{forloop.counter}}" type="checkbox"/><span style="cursor:pointer;font-size:70%;" class="pure-button pure-button-primary">{{cat}}</span></label>
+            {% for corp in corps %}
+                {% with counter=iterator.next %}
+                    <label for="id_database_{{counter}}"><input id="id_database_{{counter}}" class="inner_{{forloop.parentloop.counter}}" name="database" value="{{corp.0}}" type="checkbox"> {{corp.1}}</label>
+                {% endwith %}
+            {% endfor %}
+        </div>
+    {% endfor %}
+    <br>
+    <div style="color:#09F"><label><input type="checkbox" id="checkAll"/> <span style="cursor:pointer;font-size:80%;" class="pure-button">全選</span></label></div>
+    <div class="errmsg">{{form.database.errors.as_text}}</div>
+    </form>
+{% else %} 
+    <font size="4px" color="grey">
+    關鍵字: <u>{{query}}</u> 語料庫:
+    {% for db in database %}
+        <u>{{db.1}}</u>
+    {% endfor %}
+    </font>
+    <a style="font-size:16px;color:grey" class="pure-button pure-button-active" href="{% url 'search' %}">重新搜尋</a>
+{% endif %}
+{% endblock %}
+
+{% block aside %}
+{% if not form %}
+    <aside> 
+        <nav id="secondary-navigation"> 
+            <ul> 
+                <li class="{% block nav_con %}{% endblock %}"><a onclick="location.replace('{% url 'concordance' %}')" style="cursor:pointer">Concordance</a></li> 
+                <li class="{% block nav_col %}{% endblock %}"><a href="{% url 'collocation' %}">Collocation</a></li> 
+                <li class="{% block nav_ske %}{% endblock %}"><a href="{% url 'sketch' %}" >Sketch</a></li>  
+                <li class="{% block nav_key %}{% endblock %}"><a href="{% url 'keyness' %}">Keyness</a></li> 
+                <li class="{% block nav_emo %}{% endblock %}"><a href="#{# url 'emotion' #}" class="pure-button pure-button-disabled" style="text-align:left">Emotion</a></li> 
+                <li class="{% block nav_the %}{% endblock %}"><a href="{% url 'thesaurus' %}" id="thesaurus">Thesaurus</a></li> 
+            </ul> 
+        </nav> 
+    </aside>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if form %}
+        <h3>說明</h3>
+        <ul class="intro">
+            <li>COPENS語料庫儲存與搜尋引擎係根據
+                <a href="http://cwb.sourceforge.net/", target="_blank">CWB (The IMS Open Corpus Workbench)</a>
+            </li>
+            <li>您可以使用<b>CQL</b> (Corpus Query Language) 進行查詢的動作<br>
+               但目前COPENS將不會對您的CQL語法進行偵錯<br>
+               故在使用時請自行確認語法使用之正確性</li>
+            <li>有關CQL (Corpus Query Language)之使用可參閱<a href="http://www.inf.ed.ac.uk/teaching/courses/inf1/da/2012-2013/tutorials/cqp-tutorial.pdf" target="_blank">CQP Query Language Tutorial</a>
+            <br>
+            或參考COPENS提供之<button class="pure-button pure-button-primary" onclick="window.open('{% url "cql_tutorial" %}','_blank');">簡易教學</button>
+            </li>
+        </ul>
+        {% comment %}
+        <section>
+            <h2>Parameters</h2>
+            <div class="wrapper clearfix">
+                <div class="grid_2">
+                    <h3>{{form.pos.label}}</h3>           
+                    <div class="onoffswitch">
+                        <input type="checkbox" name="{{form.pos.name}}" class="onoffswitch-checkbox" id="{{form.pos.auto_id}}" checked>
+                        <label class="onoffswitch-label" for="{{form.pos.auto_id}}">
+                            <span class="onoffswitch-inner">
+                                <span class="onoffswitch-active"><span class="onoffswitch-switch">ON</span></span>
+                                <span class="onoffswitch-inactive"><span class="onoffswitch-switch">OFF</span></span>
+                            </span>
+                        </label>
+                    </div>            
+                </div>
+            </div> 
+            <hr>
+            <h2>Instructions</h2>
+        </section>
+        {% endcomment %}
+    {% else %}
+        <section id="content">
+            <h2>請點選任一功能</h2>
+        </section>
+    {% endif %}
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        {% if not user.is_authenticated %}
+            $('#id_ch_6').remove();
+        {% endif %}
+    </script>
+{% endblock extra_js %}
+
+{% block extra_css %}
+    {% if form %}
+        <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+        <link rel="stylesheet" href="{% static 'css/switch.css' %}">
+        <link rel="stylesheet" href="{% static 'css/ui-slider.css' %}">
+        <style>
+        input[id="checkAll"], input[class^="check_"] {
+            display:none;
+        }
+        ul.intro li {padding-bottom:10px;line-height:30px;}
+        .intro a {color:#0099ff !important;}
+
+        </style>
+    {% endif %}
+{% endblock extra_css %}

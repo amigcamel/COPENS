@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block nav_wor %}current{% endblock %}
+
+{% block h1 %}
+{% if form %}
+    <form action="{% url 'wordlist' %}" method="post">{% csrf_token %}
+    {% for cat, corps in CHOICE%}
+        <div id="id_ch_{{forloop.counter}}" class="choice">
+                <label><input class="check_{{forloop.counter}}" type="checkbox"/><span style="cursor:pointer;font-size:70%;" class="pure-button pure-button-primary">{{cat}}</span></label>
+                {% for corp in corps %}
+                    {% with counter=iterator.next %}
+                        <label for="id_database_{{counter}}"><input id="id_database_{{counter}}" class="inner_{{forloop.parentloop.counter}}" name="database" value="{{corp.0}}" type="checkbox"> {{corp.1}}</label>
+                    {% endwith %}
+                {% endfor %}
+        </div>
+    {% endfor %}
+    <div style="color:#09F"><label><input type="checkbox" id="checkAll"/> <span style="cursor:pointer;font-size:80%;" class="pure-button">全
+選</span></label></div>
+    <br>
+    <button class="pure-button">查詢</button>
+    <div class="errmsg">{{form.database.errors.as_text}}</div>
+{% else %}
+    <font size="4px" color="grey">
+     語料庫:
+    {% for db in database %}
+    <u>{{db.1}}</u>
+    {% endfor %}
+    </font>
+    <a style="font-size:16px;color:grey" class="pure-button pure-button-active" href="{% url 'wordlist' %}">重新搜尋</a>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+{% if form %}
+<h2>Filters</h2>
+<div class="wrapper clearfix">
+    {% for field in form %}
+        {% if field.label == 'Stopwords' or field.label == 'Punctuations' %}
+            <div class="grid_2">
+                <h3>{{field.label}}</h3>
+                <div class="onoffswitch">
+                    <input type="checkbox" name="{{field.name}}" class="onoffswitch-checkbox" id="{{field.auto_id}}" checked>
+                    <label class="onoffswitch-label" for="{{field.auto_id}}">
+                        <span class="onoffswitch-inner">
+                            <span class="onoffswitch-active"><span class="onoffswitch-switch">ON</span></span>
+                            <span class="onoffswitch-inactive"><span class="onoffswitch-switch">OFF</span></span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    
+
+    <div class="grid_4">
+        {{form.topnword.errors}}
+        {{form.topnword}}
+        <h3>Top <span id="slider-result"></span> words</h3>
+        <div id='slider'></div>
+    </div>
+
+    <div class="grid_4" id="swlvl">
+        {{form.stopword_level.errors}}
+        {{form.stopword_level}}
+        <h3>Stopword level: <span id="slider-result2"></span></h3>
+        <div id="slider2"></div>
+    </div>
+
+</div>
+</form>
+<hr>
+<h2>Instructions</h2>
+<ul>
+    <li>Stopwords (停用詞) 是根據中研院平衡語料庫之高頻詞表所構成。使用者可自行定義欲篩選之高頻詞數量。</li>
+    <li>Punctuatoins之選取可過濾標點符號。</li>
+</ul> 
+
+{% else %}
+    <section>
+    <div id="download" style="display:none">
+        <h2>您想要下載哪一個結果？</h2>
+        {% for corpname in output.keys %}
+            {{forloop.counter}}. <a href="{% url 'download_wordlist' corpname %}">{{corpname}}</a><br>
+        {% endfor %} 
+    </div>
+    <div>
+        <a class="pure-button pure-button-primary fancybox" style="background-color:rgb(28, 184, 65)" href="#download">下載CSV</a>
+    </div>
+        {% for corpname, dics in output.items %}
+            <div class="grid_6">
+                <h3>{{corpname}}</h3>
+                <table class="pure-table" id="table_{{forloop.counter}}">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Token</th>
+                            <th>Occurrence</th>
+                            <th>Frequency</th>
+                        </tr>
+                    </thead>
+                
+                    <tbody>
+                    {% for dic in dics %}    
+                        <tr {% if forloop.counter|divisibleby:2 %}class="pure-table-odd"{% else %}{% endif %}>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{dic.tok}}</td>
+                            <td>{{dic.occ}}</td>
+                            <td>{{dic.freq}}</td>
+                        </tr>
+                    {% endfor %}       
+                    </tbody>
+                </table>
+            </div>
+        {% endfor %}
+    </section>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+    {% if form %}    
+        <script>
+        $("#slider").slider(
+        {
+                    value:20,
+                    min: 10,
+                    max: 200,
+                    step: 10,
+                    slide: function( event, ui ) {
+                        $( "#slider-result" ).html( ui.value );
+                        $("#{{form.topnword.auto_id}}").val(ui.value);
+                    }
+        }
+        );
+        $( "#slider-result" ).html(  $('#slider').slider('value') );
+        </script>
+        <script>
+        $("#slider2").slider(
+        {
+                    value:100,
+                    min: 10,
+                    max: 200,
+                    step: 10,
+                    slide: function( event, ui ) {
+                        $( "#slider-result2" ).html( ui.value );
+                        $("#{{form.stopword_level.auto_id}}").val(ui.value);
+                    }
+        }
+        );
+        $( "#slider-result2" ).html(  $('#slider2').slider('value') );
+        </script>
+        <script type="text/javascript">
+        $('#{{form.stopwords.auto_id}}').change(function() {
+            var $check = $(this);
+        
+            if ($check.prop('checked')) {
+                $('#swlvl').fadeIn('fast'); 
+            } else {
+                $('#swlvl').fadeOut('fast'); 
+        
+            }
+        
+        });
+        </script>
+    {% else %}
+        <script type="text/javascript" src="{% static "packages/fancybox2/source/jquery.fancybox.js" %}"></script>
+        <script src="http://datatables.net/release-datatables/media/js/jquery.dataTables.js"></script>
+        <script>
+            $(document).ready( function () 
+            {
+                $('.fancybox').fancybox({'autoSize':false, 'width':400, 'height':400});
+            	var oTable = $('table[id^="table_"]').dataTable( 
+            	{
+            		"sScrollY": "400px",
+            		"sScrollX": "100%",
+            		"sScrollXInner": "100%",
+            		"bScrollCollapse": true,
+            		"bPaginate": false,
+                        "bInfo": false,
+                        "bFilter": false,
+                        "bSort": false
+            	} );
+            	new FixedColumns( oTable, 
+            	{
+            		"sHeightMatch": "none"
+            	} );
+            } );
+        </script>
+    {% endif %}
+{% endblock extra_js %}
+
+{% block important_css %}
+    {% if form %}
+        <link rel="stylesheet" href="{% static 'css/switch.css' %}">
+        <link rel="stylesheet" href="{% static 'css/ui-slider.css' %}">
+    {% endif %}
+{% endblock important_css %}
+{% block extra_css %}
+    {% if form %}
+        <style>
+        input[id="checkAll"], input[class^="check_"] {
+            display:none;
+        }
+        </style>
+    {% else %}
+        <link rel="stylesheet" type="text/css" href="{% static 'packages/fancybox2/source/jquery.fancybox.css' %}" media="screen" />
+    {% endif %}
+{% endblock extra_css %}
