@@ -1,0 +1,69 @@
+{% extends "registration/registration_base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% block title %}{% trans "Login" %}{% endblock %}
+{% block header %}{% block h1 %}使用者登入{% endblock %}{% endblock %}
+{% block nav_login %}current{% endblock %}
+
+{% block content %}
+<section>
+{% url 'auth_password_reset' as auth_pwd_reset_url %}
+{% url 'registration_register' as register_url%}
+
+{% if form.errors %}
+<div class="errmsg">
+<p>{% blocktrans %}Your username and password didn't match. Please try again.{% endblocktrans %}</p>
+</div>
+{% endif %}
+<form action="{% url 'facebook_connect' %}" method="post">
+    <h2>您可以透過Facebook登入</h2>
+    {% csrf_token %}
+    <input type="hidden" value="{{ request.path }}" name="next" />
+
+    <div id="facebook_login_js">    <input onclick="F.connect(this.parentNode.parentNode); return false;" type="image" src="{% static 'facebook/images/facebook_login.png' %}" />
+    </div>
+</form>
+
+<br>
+<h2>或使用COPENS登入</h2>
+<form class="pure-form" method="post" action="{% url 'auth_login' %}">{% csrf_token %}
+<table class="pure-table" style="border:0">
+<tr>
+    {% comment %}
+    <td>{% trans form.username.label_tag %}</td>
+    {% endcomment %}
+    <td><label for="{{form.username.auto_id}}">帳號:</label></td>
+    <td><input id="{{form.username.auto_id}}" name="{{form.username.name}}" type="text" placeholder="Username" required="required" /></td>
+</tr>
+<tr>
+    {% comment %}
+    <td>{% trans form.password.label_tag %}</td>
+    {% endcomment %}
+    <td><label for="{{form.password.auto_id}}">密碼:</label></td>
+    <td><input id="{{form.password.auto_id}}" name="{{form.password.name}}" type="password" placeholder="Password" required="required" /></td>
+</tr>
+</table>
+
+<ul>
+    <li>如果您忘記密碼，請點<a href="{% url 'auth_password_reset' %}">這裡</a></li>
+    <li>如果您不是會員，歡迎<a href="{% url 'registration_register' %}">註冊</a></li>
+</ul>
+
+<input class="pure-button pure-button-primary" type="submit" value="{% trans "登入" %}" />
+<input type="hidden" name="next" value="{{ next }}" />
+</form>
+<br><br>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+table {
+  border:0 !important;
+} 
+table td {
+  border:0 !important;
+}
+</style>
+{% endblock %}
+

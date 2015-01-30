@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block nav_bra %}current{% endblock %}
+{% block h1 %}Brat{% endblock %}
+
+{% block content %}
+<section>
+    {% if user.is_authenticated %}
+    {% if form1 and form2 %}
+    {% if unchk %}
+    <h3>待確認檔案</h3>
+        {% for uc in unchk %}
+         <p><a href="{% url 'getBrat' uc.0 uc.1 %}"><span style="color:#0099ff">{{uc.0}}/{{uc.1}}</span></a></p>
+        {% endfor %}
+     <hr>
+    {% endif %}
+
+    
+    
+    
+    <div>
+        <form class="pure-form" action="{% url 'brat.views.brat' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+            {{form1.as_p}}
+            {{form2.as_p}}
+            <div><input class="pure-button" type="submit" value="Submit"/></div>
+        </form>
+    </div>
+    {% else %}
+    <a href="{% url 'setchecked' folder_name %}" class="pure-button pure-button-primary">Set checked</a>
+    
+    <iframe id="bratframe" src="{{target_url}}" width="100%" height="800" frameBorder='0'></iframe>
+    {% block extra_js %}
+    <script type="text/javascript" src="{% static 'js/iframe-height-jquery-plugin.js' %}"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('#autoIframe').iframeHeight();
+      $('.helptext').addClass('errmsg');
+      });
+    </script>
+    {% comment %}
+    <script>
+    $("iframe").load(function(e){
+        $(this).contents().find('#header').remove();
+    });
+    </script>
+    {% endcomment %}
+    {% endblock %}
+    {% endif %}
+{% else %}
+<h2>請先登入！</h2>
+<hr>
+<h3>The following is quoted from <a href="http://brat.nlplab.org/index.html" target="_blank">Brat's official site.</a></h3>
+<ul>
+    <li>Brat is a web-based tool for text annotation; that is, for adding notes to existing text documents.</li>
+    <li>Brat is designed in particular for structured annotation, where the notes are not freeform text but have a fixed form that can be automatically processed and interpreted by a computer.</li>
+</ul>
+<p>You can <a href="http://weaver.nlplab.org/~brat/demo/latest/#/" target="_blank">try brat online</a>.</p>
+{% endif %}
+</section>
+{% endblock %}

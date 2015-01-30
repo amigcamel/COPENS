@@ -1,0 +1,300 @@
+{% extends 'base.html' %}
+{% block h1 %}聯絡資訊{% endblock %}
+{% block nav_cnt %}current{% endblock %}
+{% block content %}
+<section>
+{% if contactform %}
+    <div class="grid_6">
+        <h2 >不論您有任何想法，歡迎透過以下表單聯絡我們</h2>
+        <div id="frame">
+            {% if okmsg %}
+                <div class='errmsg' style="margin-left:auto;margin-right:auto;text-align:center">{{okmsg}}</div>
+            {% endif %}
+        
+            <form action="{% url "contact" %}" method="post"  autocomplete="on">{% csrf_token %}
+                {{contactform.as_p}}
+                <input type="submit" value=" ★  Send the mail !" />		 
+            </form>		
+        </div>
+    </div>
+
+    <div class="grid_6">
+        <h2>聯絡資訊</h2>
+        <table class="pure-table pure-table-horizontal">
+            <thead>
+                <tr>
+                    <th>姓名</th>
+                    <th>電子郵件</th>
+                    <th>分工</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><b>謝舒凱<br> 老師</b></td>
+                    <td>shukai@gmail.com</td>
+                    <td>計畫發想、策劃、設計與一切</td>
+                </tr>
+                <tr>
+                    <td>劉純睿<br> (阿吉)</td>
+                    <td>amigcamel@gmail.com</td>
+                    <td>系統開發與網站建置</td>
+                </tr>
+                <tr>
+                    <td>秦睿謙</td>
+                    <td>ray40702@gmail.com</td>
+                    <td>Brat API 撰寫</td>
+                </tr>
+                <tr>
+                    <td>施孟賢 <br> (Simon)</td>
+                    <td>simon.xian@gmail.com</td>
+                    <td>同義詞開發</td>
+                </tr>
+                <tr>
+                    <td>呂珮瑜 <br> (愛米粒)</td>
+                    <td>emily.lulala@gmail.com</td>
+                    <td>Logo設計</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% endif %}
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+/* ===[ Here comes to good stuff : frame styling ]=== */
+#frame {
+    position: relative;
+/*    margin: 50px auto;   */ 
+    width: 500px;
+    min-height: 200px;
+    z-index: 100;
+    padding: 30px;
+    border: 1px solid #383838;
+    /* My stipped background */
+    background: #D1D1D1; /* Old browsers */
+    background: -moz-repeating-linear-gradient(-45deg, #EFC1CB , #EFC1CB 30px, #F2F2F2 30px, #F2F2F2 40px, #C2E8F5 40px, #C2E8F5 70px,#F2F2F2 70px, #F2F2F2 80px); /* FF3.6+ */
+    background: -webkit-repeating-linear-gradient(-45deg, #EFC1CB , #EFC1CB 30px, #F2F2F2 30px, #F2F2F2 40px, #C2E8F5 40px, #C2E8F5 70px,#F2F2F2 70px, #F2F2F2 80px); /* FF3.6+ */
+    background: -o-repeating-linear-gradient(-45deg, #EFC1CB , #EFC1CB 30px, #F2F2F2 30px, #F2F2F2 40px, #C2E8F5 40px, #C2E8F5 70px,#F2F2F2 70px, #F2F2F2 80px); /* FF3.6+ */
+    background: repeating-linear-gradient(-45deg, #EFC1CB , #EFC1CB 30px, #F2F2F2 30px, #F2F2F2 40px, #C2E8F5 40px, #C2E8F5 70px,#F2F2F2 70px, #F2F2F2 80px); /* FF3.6+ */
+    /*border-radius*/
+   -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    /*box-shadow*/
+    -webkit-box-shadow: 0px 1px 6px #3F3F3F;
+    -moz-box-shadow: 0px 1px 6px #3F3F3F;
+    box-shadow: 0px 1px 6px #3F3F3F;
+}
+
+/* * my "fake" background that will hover the stripes *
+   ================================================== */
+
+#frame:after {
+    background: #F9F9F9;
+    margin: 10px;
+    position: absolute;
+    content : " ";
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: -1;
+    border: 1px #E5E5E5 solid;
+    /*border-radius*/
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+}
+
+/* ** form styling *
+   ================================================== */
+
+/* * we remove the red glow around required fields since we are already using the red star
+   ================================================== */
+
+input:required, textarea:required {
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    -o-box-shadow: none;
+    box-shadow: none;
+}
+
+/* * inputs and textarea*
+   ================================================== */
+
+input:not([type="submit"]), textarea {
+    outline: none;
+    display: block;
+    width: 380px;
+    padding: 4px 8px;
+    border: 1px dashed #DBDBDB;
+    color: #3F3F3F;
+    font-family: 'Droid Sans',Tahoma,Arial,Verdana sans-serif;
+    font-size: 14px;
+    /*border-radius*/
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    /*transition*/
+    -webkit-transition: background 0.2s linear, box-shadow 0.6s linear;
+    -moz-transition: background 0.2s linear, box-shadow 0.6s linear;
+    -o-transition: background 0.2s linear, box-shadow 0.6s linear;
+    transition: background 0.2s linear, box-shadow 0.6s linear;
+}
+
+input:not([type="submit"]):active, textarea:active, input:not([type="submit"]):focus, textarea:focus {
+    background: #F7F7F7;
+    border: dashed 1px #969696;
+    /*box-shadow*/
+    -webkit-box-shadow: 2px 2px 7px #E8E8E8 inset;
+    -moz-box-shadow: 2px 2px 7px #E8E8E8 inset;
+    box-shadow: 2px 2px 7px #E8E8E8 inset;
+}
+
+input:not([type="submit"]) { height: 30px }
+
+/* placeholder  */
+
+::-webkit-input-placeholder {
+    color: #BABABA;
+    font-style: italic;
+}
+
+input:-moz-placeholder, textarea:-moz-placeholder {
+    color: #BABABA;
+    font-style: italic;
+}
+
+textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+/* * labels*
+   ================================================== */
+
+/* * adding our icon font !!
+   ================================================== */
+
+.iconic:before {
+    font-size: 25px;
+    font-family: "IconicStroke";
+}
+
+.iconic.link:before { frame: '/' }
+
+.iconic.quote-alt:before { frame: "'" }
+
+.iconic.comment:before { frame: "q" }
+
+.iconic.user:before { frame: "u" }
+
+.iconic.mail-alt:before { frame: "M" }
+
+label {
+    color: #7F7E7E;
+    -webkit-transition: color 1s ease;
+    -moz-transition: color 1s ease;
+    transition: color 1s ease;
+}
+
+label:hover { color: #191919 }
+
+label:before {
+    color: #C1BFBD;
+    -webkit-transition: color 1s ease;
+    -moz-transition: color 1s ease;
+    transition: color 1s ease;
+}
+
+label:hover:before {
+    color: #969696;
+    -webkit-transition: color 1s ease;
+    -moz-transition: color 1s ease;
+    transition: color 1s ease;
+}
+
+p { margin-bottom: 20px }
+
+.indication {
+    color: #878787;
+    font-size: 12px;
+    font-style: italic;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.required { color: #E5224C }
+
+/* * Styling the send button *
+   ================================================== */
+
+input[type=submit] {
+    margin-left: 235px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: 'Alice',serif;
+    color: #767676;
+    font-size: 18px;
+    padding: 10px 4px;
+    border: 1px solid #E0E0E0;
+    text-shadow: 0px 1px  1px #E8E8E8;
+    background: rgb(247,247,247);
+    background: -moz-linear-gradient(top,  rgba(247,247,247,1) 1%, rgba(242,242,242,1) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,rgba(247,247,247,1)), color-stop(100%,rgba(242,242,242,1)));
+    background: -webkit-linear-gradient(top,  rgba(247,247,247,1) 1%,rgba(242,242,242,1) 100%);
+    background: -o-linear-gradient(top,  rgba(247,247,247,1) 1%,rgba(242,242,242,1) 100%);
+    background: -ms-linear-gradient(top,  rgba(247,247,247,1) 1%,rgba(242,242,242,1) 100%);
+    background: linear-gradient(top,  rgba(247,247,247,1) 1%,rgba(242,242,242,1) 100%);
+    /*border-radius*/
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    /*box-shadow*/
+    -webkit-box-shadow: 0px 1px 1px #FFF inset, 0 0 0px 5px #EAEAEA;
+    -moz-box-shadow: 0px 1px 1px #FFF inset, 0 0 0px 5px #EAEAEA;
+    box-shadow: 0px 1px 1px #FFF inset, 0 0 0px 5px #EAEAEA;
+    /*transition*/
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+}
+
+input[type=submit]:hover {
+    color: #686868;
+    border-color: #CECECE;
+    background: rgb(244,244,244);
+    background: -moz-linear-gradient(top,  rgba(244,244,244,1) 0%, rgba(242,242,242,1) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(244,244,244,1)), color-stop(100%,rgba(242,242,242,1)));
+    background: -webkit-linear-gradient(top,  rgba(244,244,244,1) 0%,rgba(242,242,242,1) 100%);
+    background: -o-linear-gradient(top,  rgba(244,244,244,1) 0%,rgba(242,242,242,1) 100%);
+    background: -ms-linear-gradient(top,  rgba(244,244,244,1) 0%,rgba(242,242,242,1) 100%);
+    background: linear-gradient(top,  rgba(244,244,244,1) 0%,rgba(242,242,242,1) 100%);
+    /*box-shadow*/
+    -webkit-box-shadow: 0px 1px 1px #FFF inset, 0 0 0px 5px #E0E0E0;
+    -moz-box-shadow: 0px 1px 1px #FFF inset, 0 0 0px 5px #E0E0E0;
+    box-shadow: 0px 1px 1px #FFF inset, 0 0 0px 5px #E0E0E0;
+}
+
+input[type=submit]:active, input[type=submit]:focus {
+    position: relative;
+    top: 1px;
+    color: #515151;
+    background: rgb(234,234,234);
+    background: -moz-linear-gradient(top,  rgba(234,234,234,1) 0%, rgba(242,242,242,1) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(234,234,234,1)), color-stop(100%,rgba(242,242,242,1)));
+    background: -webkit-linear-gradient(top,  rgba(234,234,234,1) 0%,rgba(242,242,242,1) 100%);
+    background: -o-linear-gradient(top,  rgba(234,234,234,1) 0%,rgba(242,242,242,1) 100%);
+    background: -ms-linear-gradient(top,  rgba(234,234,234,1) 0%,rgba(242,242,242,1) 100%);
+    background: linear-gradient(top,  rgba(234,234,234,1) 0%,rgba(242,242,242,1) 100%);
+    /*box-shadow*/
+    -webkit-box-shadow: 0px -1px 1px #FFF inset, 0 0 0px 5px #E0E0E0;
+    -moz-box-shadow: 0px -1px 1px #FFF inset, 0 0 0px 5px #E0E0E0;
+    box-shadow: 0px -1px 1px #FFF inset, 0 0 0px 5px #E0E0E0;
+}
+</style>
+{% endblock %}

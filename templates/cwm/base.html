@@ -1,0 +1,285 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>COPENS</title>
+<meta name="description" content="COPENS">
+<meta name="keywords" content="">
+
+<!-- Mobile viewport -->
+<meta name="viewport" content="width=device-width; initial-scale=1.0">
+
+<link rel="shortcut icon" href="{% static 'img/lope.ico' %}"  type="image/x-icon" />
+
+<!-- CSS-->
+<!-- Google web fonts. You can get your own bundle at http://www.google.com/fonts. Don't forget to update the CSS accordingly!-->
+<link href='http://fonts.googleapis.com/css?family=Droid+Serif|Ubuntu' rel='stylesheet' type='text/css'>
+<style>
+    @import url(http://weloveiconfonts.com/api/?family=entypo);
+    
+    /* entypo */
+    [class*="entypo-"]:before {
+      font-family: 'entypo', sans-serif;
+    }
+</style>
+{% block extra_css%}{% endblock %}
+<link rel="stylesheet" href='{% static "css/normalize.css" %}'>
+<link rel="stylesheet" href='{% static "js/flexslider/flexslider.css" %}'>
+<link rel="stylesheet" href='{% static "css/basic-style.css" %}'>
+<link rel="stylesheet" href='{% static "css/lettering.css" %}'>
+<link rel="stylesheet" href='{% static "css/social_media.css" %}'>
+<style>
+.choice {
+  font-size:20px;
+  padding:0px;
+}
+.overlay {
+  display: none;
+  background: rgba(0,0,0,0.80);
+  width:      100%;
+  height:     40px; 
+  z-index:    10;
+  top:        60%; 
+  left:       0; 
+  position:   fixed; 
+  font-size:  30px;
+  text-align: center;
+  color: white;
+  padding-top: 8px;
+}
+#txt1, #txt2, #txt3 {
+  display: none;
+}
+</style>
+
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+<!-- jquery UI css -->
+<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+{% block important_css %}{% endblock important_css %}
+<!-- end CSS-->
+    
+<!-- JS-->
+<script src='{% static "js/libs/modernizr-2.6.2.min.js" %}'></script>
+<!-- end JS-->
+
+</head>
+
+<body id="home">
+<!-- Facebook plugin -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=666382376793585&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<!-- end Facebook plugin -->
+
+<div id="page-loader"></div>
+<div id="page-loader-text" class="overlay">
+  <span id="txt1">請稍等</span>
+  <span id="txt2">資料可能比較多，請等一下</span>
+  <span id="txt3">請再等一下下...</span>
+</div>
+<!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+<section id="top-bar">
+    <div class="wrapper clearfix">
+        <a href="{% url "home" %}">COPENS</a>
+            {% if user.is_authenticated %}
+                <span class="toptabright"><a href="{% url "auth_logout" %}">登出</a></span>
+                <span class="toptabright"><a href="{% url "profile" %}"><span class="entypo-user"> 控制臺</span></a></span>
+                <span class="toptabright toptext">Hi, {{request.user}}!</span>
+            {% else %}
+                <span class="toptabright"><a href="{% url "auth_login" %}">登入</a></span>
+                <span class="toptabright"><a href="{% url "registration_register" %}">註冊</a></span>
+            {% endif %} 
+    </div>
+</section>
+
+    <header class="wrapper clearfix">	       
+        <div id="banner">        
+            <div id="logo" style="float:left">
+                <a href="{% url 'home' %}"><img src="{% static 'img/lope.svg' %}" alt="logo" width=100></a>
+            </div> 
+            <h1 id="h1" class="copen">COPENS</h1>
+        </div>
+        
+        <nav id="topnav" role="navigation">
+            <div class="menu-toggle">Menu</div>  
+                <ul class="srt-menu" id="menu-main-navigation">
+                    <li class="{% block nav_sea %}{% endblock %}"><a href="{% url 'search' %}"><span class="entypo-search"> Search</span></a></li>
+                    <li class="{% block nav_wor %}{% endblock %}"><a href="{% url 'wordlist' %}"><span class="entypo-book"> Wordlist</span></a></li>
+                    <li class="{% block nav_bra %}{% endblock %}"><a href="{% url 'brat'%}"><span class="entypo-doc-text"> Brat</span></a></li>
+                    <li class="{% block nav_api %}{% endblock %}"><a href="{% url 'api'%}"><span class="entypo-tools"> API</span></a></li>
+                    <li><a href="#"><span class="entypo-info"> About</span></a>
+                        <ul>
+                            <li class="{% block nav_abo %}{% endblock %}"><a href="{% url 'about_copens' %}">COPENS</a></li>
+                            <li class="{% block nav_toc %}{% endblock %}"><a href="{% url 'toc' %}">使用條款</a></li>
+                            <li class="{% block nav_cnt %}{% endblock %}"><a href="{% url 'contact' %}">聯絡資訊</a></li>
+                        </ul>
+                    </li>
+	        </ul>     
+        </nav>
+    </header>
+ 
+<section id="page-header" class="clearfix">    
+    <div class="wrapper">
+        <h1>{% block h1 %}{% endblock %}</h1>
+    </div>
+</section>
+
+{% block before_content %}{% endblock before_content %}
+<div class="wrapper" id="main"> 
+    {% block content %}{% endblock %}
+    {% block aside %}{% endblock %}
+</div>
+{% block after_content %}{% endblock after_content %}
+   
+<!-- footer area -->    
+<footer>
+    <div id="colophon" class="wrapper clearfix">
+        <div class="grid_8">
+            <div>
+                <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/tw/"><img alt="創用 CC 授權條款" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png" /></a> 本著作係採用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/tw/">創用 CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款</a>授權.
+            </div>
+            <div>
+                Developed by:
+                <a href="http://lope.linguistics.ntu.edu.tw/" target="_blank">LOPE Lab, Graduate Institutue of Linguistics, National Taiwan University</a>
+            </div>
+            <!--You can NOT remove this attribution statement from any page, unless you get the permission from prowebdesign.ro-->
+            <div>
+
+
+            </div>
+            <div style="color:#666; font-size:11px;">
+                Webmaster:<a style="color:#777" href="http://140.112.147.131/ajiblog" target="_blank">阿吉</a>(amigcamel@gmail.com)
+            </div>
+            <div id="attribution"  style="color:#666; font-size:11px;">Site built with <a href="http://www.prowebdesign.ro/simple-responsive-template/" target="_blank" title="Simple Responsive Template is a free software by www.prowebdesign.ro" style="color:#777;">Simple Responsive Template</a>
+            </div>
+            <!--end attribution-->
+
+            <!-- Facebook like button -->
+            <div class="fb-like" data-href="http://lopen.linguistics.ntu.edu.tw/copens" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" style="overflow:hidden;width:90px;"></div>
+            <!-- end Facebook like button -->
+        </div>
+        <div class="grid_4">
+            <div>來分享出去吧！</div> 
+            <div class="social__container">
+                <!-- social__item linkedin -->
+                <div class="social__item">
+                        <a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url=http://lopen.linguistics.ntu.edu.tw/copens&title=copens&source=lopen.linguistics.ntu.edu.tw" onclick="goclicky(this); return false;" class="social__icon--linkedin"><i class="icon--linkedin"></i></a>
+                </div>
+          
+                <div class="social__item">
+                        <a target="_blank" href="http://twitter.com/home?status=copens+http://lopen.linguistics.ntu.edu.tw/copens" onclick="goclicky(this); return false;" class="social__icon--twitter"><i class="icon--twitter"></i></a>
+                </div>
+
+                <div class="social__item">
+                        <a target="_blank" href="https://plus.google.com/share?url=http://lopen.linguistics.ntu.edu.tw/copens" onclick="goclicky(this); return false;" class="social__icon--googleplus"><i class="icon--googleplus"></i></a>
+                </div>                          
+
+                <div class="social__item">
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://lopen.linguistics.ntu.edu.tw/copens&title=copens" onclick="goclicky(this); return false;" class="social__icon--facebook"><i class="icon--facebook"></i></a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+</footer><!-- #end footer area --> 
+
+<!--Lettering.js-->
+<script>
+// https://gist.github.com/1119059
+var lettering = function (
+a, // a DOM element
+b, // optional regexp (use /\S+/g for whole words)
+c, // placeholder
+d // placeholder
+) {
+    c = 0, // init counter to 0
+    a.innerHTML = // replace the html contents
+    a.textContent.replace( // with the text contents
+    b || /\S/g, // default regexp: single characters 
+    function (d) { // wrapped in
+        return '<span class=char' + // spans with classnames (note: no need for attribute quoting)
+        (++c) + // char1 .. charN
+        '>' + d + // char or word
+        '</span>'
+    })
+}
+
+lettering(document.getElementById('h1'))
+</script>
+<!-- jQuery -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<!-- jquery UI -->
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+
+{% comment %}
+<script>window.jQuery || document.write('<script src='{% static "js/libs/jquery-1.9.0.min.js" %}'>\x3C/script>')</script>
+{% endcomment %}
+<script defer src='{% static "js/flexslider/jquery.flexslider-min.js" %}'></script>
+
+<script src='{% static "js/spin.js" %}'></script>
+<script src='{% static "js/jquery.spin.js" %}'></script>
+
+<!-- fire ups - read this file!  -->   
+<script src='{% static "js/main.js" %}'></script>
+<script>
+    $('section').tooltip();
+</script>
+<!-- open new window which centered on screnn: http://stackoverflow.com/a/6984437/1105489 -->
+<script>
+    function goclicky(meh)
+    {
+        var x = screen.width/2 - 700/2;
+        var y = screen.height/2 - 450/2;
+        window.open(meh.href, 'sharegplus','height=485,width=700,left='+x+',top='+y);
+    }
+</script>
+{% if form %}
+    <script>
+        {% for cat, corps in CHOICE %}
+         $(".check_{{forloop.counter}}").change(function () {
+         $(".inner_{{forloop.counter}}").prop('checked', $(this).prop("checked"));
+         });
+        {% endfor %}
+        $("#checkAll").change(function () {
+          $("input:checkbox[id^=id_database_],input:checkbox[class^=check_]").prop('checked', $(this).prop("checked"));
+        });
+    
+/*        $('input[value="ly"], input[value="textbook"], input[value="sunflower"]').parent().css('background-color', 'yellow'); */
+
+    </script>
+{% else %}
+    <script type="text/javascript">
+        $('#concordance,#keyness,#thesaurus').click(function() {
+    
+        $('html, body').css({
+            'overflow': 'hidden',
+            'height': '100%'
+        });
+    
+        $('#page-loader').spin();
+    
+        $('#page-loader-text').delay(6000).fadeIn();
+        $('#txt1').delay(6000).fadeIn().delay(10000).fadeOut();
+        $('#txt2').delay(17000).fadeIn().delay(12000).fadeOut();
+        $('#txt3').delay(30000).fadeIn();
+        });
+    </script>
+{% endif %}
+{% block extra_js %}{% endblock %}
+</body>
+</html>

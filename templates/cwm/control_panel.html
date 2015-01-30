@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block header %}{% block h1 %}控制臺{% endblock h1 %}{% endblock header %}
+
+{% block content %}
+    <section>
+        <p class="errmsg">本功能尚在開發中，此僅為測試介面</p>
+        <h2>Token</h2>
+        {% if request.user.auth_token %} 
+            <p>{{request.user.auth_token}}</p>
+        {% else %}
+            <a href="{% url 'getToken' %}" class="pure-button pure-button-primary">獲取Token</a>
+        {% endif %}
+        <br><br>
+    </section>
+{% endblock content %}

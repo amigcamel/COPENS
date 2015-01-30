@@ -1,0 +1,19 @@
+{% extends "search.html" %}
+{% block nav_key %}current{% endblock %}
+{% block header %}Keyness{% endblock %}
+{% block content %}
+<section id="content">
+{% if keynessform %}
+    <form action="{% url 'keyness' %}" method="post" class="pure-form">{% csrf_token %}
+        {{keynessform.as_p}}
+        <button id="keyness" class="pure-button">Submit</button>
+    </form>
+{% else %}
+    {% for board, keyness in rescon %}
+        <div>{{board.1}}</div>
+        <div>{{keyness}}
+        <hr>
+    {% endfor %}
+{% endif %}
+</section>
+{% endblock %}

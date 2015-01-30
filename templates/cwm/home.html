@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block header %}Home{% endblock %}
+{% block h1 %}
+    <div class="grid_4">
+        <h3>Corpora Open and Search (COPENS)</h3>
+        <p style="font-size:20px">開放語料庫與搜尋工具。動態更新，自動預處理與自由標記。讓我們期待一個內容共享，工具共創，製程開放的新一代語料庫語言學。</p>
+    </div>
+    <div class="grid_8">
+        <div class="flexslider">
+            <ul class="slides">
+                <li>多種語料庫查詢<img src="{% static 'img/copen_sh/1.png' %}"></li>
+                <li>多樣化的查詢功能<img src="{% static 'img/copen_sh/2.png' %}"></li>
+                <li>豐富的語料<img src="{% static 'img/copen_sh/3.png' %}"></li>
+                <li>使用Brat圖形化標記<img src="{% static 'img/copen_sh/4.png' %}"></li>
+                <li>簡潔的資料呈現<img src="{% static 'img/copen_sh/5.png' %}"></li>
+            </ul>
+        </div>
+    </div>
+{% endblock h1 %}
+
+
+{% block after_content %}
+    <div class="wrapper clearfix">
+        <section>
+            <div style="text-align:center;">
+                <div>
+                    <a href="https://lopen.hackpad.com/COPENS.-workshop.1-priu0FuIXvB" class="buttonlink" style="display:inline-block;float:none;" target="_blank">COPENS工作坊：Hackpad</a> 
+                    <a href="https://github.com/loperntu/copens/blob/master/copens_intro.Rmd" rel="copens_workshop" class="buttonlink fancybox" style="display:inline-block;float:none;" target="_blank">COPENS工作坊：簡報</a>
+                    <a href="{% static 'img/misc/copens_workshop_album/IMAG6585.jpg' %}" rel="copens_workshop" class="buttonlink fancybox" style="display:inline-block;float:none;">COPENS工作坊：照片</a>
+
+                    {% with 'IMAG6587.jpg IMAG6592.jpg IMAG6605_1.jpg IMAG6609_1.jpg IMAG6614_1.jpg IMAG6629.jpg' as lst %}
+                        {% for fn in lst.split %}
+                            <a href="{% static 'img/misc/copens_workshop_album/' %}{{fn}}" rel="copens_workshop" class="fancybox"></a>
+                        {% endfor %}
+                    {% endwith %}
+                </div>
+                <div class="grid_6">
+                   <h1>感謝大家的踴躍參與，COPENS因你們而充滿更多無限可能！</h1> 
+                   <p style="line-height:300%;">COPENS是一個剛起步的計畫，許多功能尚在發展的階段<br>
+                      我們沒有經費，我們只是一小群人，憑藉著一股熱血<br>
+                      以資源共享、學術開放的心態，期許語言學界能夠更為廣闊<br>
+                      如果妳/你認同我們的理想，歡迎隨時加入我們的團隊，共同協作<br>
+                      也請各位不吝批評指教，任何意見或想法都有可能是明日的新氣象！<br>
+                   </p>
+                </div>
+                <div class="grid_6">
+                    <img src="{% static 'img/misc/COPENS_WORKSHOP.png' %}" width="60%">
+                </div>
+            </div>
+    
+        </section>
+    </div>
+
+    <section id="features" class="greenelement">
+        <div class="wrapper clearfix">
+            <h1 style="text-align:center;color:white;">其他計畫</h1> 
+            <div class="grid_4">
+            <div><a href="http://lopen.linguistics.ntu.edu.tw/PTT" target="_blank"><img src="http://lopen.linguistics.ntu.edu.tw/static/images/PTTCorp.jpg"></a></div> 
+            <p>作為一個台灣特有的 BBS 系統，PTT 記錄了珍貴而有趣的社會語言文化現象。提供了語言接觸與演化，與「精簡語言學」重要的經驗訊息。</p>
+            </div>
+            <div class="grid_4">
+            <div><a href="http://lope.linguistics.ntu.edu.tw/cwn2/" target="_blank"><img src="http://lope.linguistics.ntu.edu.tw/img/logo.png" height="40%"></a></div> 
+            <p>中文詞彙地圖是一個以華語文教學爲目的的詞彙知識素描混搭系統。也是字典學的破壞性創新提案。</p>
+            </div>
+            <div class="grid_4">
+            <div><a href="http://lope.linguistics.ntu.edu.tw/cwm/" target="_blank"><img src="http://lope.linguistics.ntu.edu.tw/cwm/img/cwmlogo.jpg"></a></div>
+            <p>中文詞彙網路著眼於建構一個深層的語義與概念網路。精細的詞意分析與開放的關係設計將有助於理解語言與心智的構作。</p>
+            </div>
+        </div><!-- #end div .wrapper -->
+    </section>
+
+
+{% endblock after_content %}
+
+
+{% block extra_css %}
+    <style>
+        .flexslider {
+          text-align:center;          
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'packages/fancybox2/source/jquery.fancybox.css' %}" media="screen" />
+{% endblock extra_css%}
+
+{% block extra_js %}
+    <script type="text/javascript" src="{% static "packages/fancybox2/source/jquery.fancybox.js" %}"></script>
+    <script>
+        $('.fancybox').fancybox();
+    </script>
+{% endblock extra_js %}

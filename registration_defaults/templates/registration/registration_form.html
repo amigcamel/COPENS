@@ -1,0 +1,109 @@
+{% extends "registration/registration_base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% block title %}{% trans "Register for an account" %}{% endblock %}
+{% block header %}{% block h1 %}使用者註冊{% endblock %}{% endblock %}
+{% block nav_reg %}current{% endblock %}
+
+{% block content %}
+<section>
+<form action="{% url 'facebook_connect' %}" method="post">
+    <h2>您可以透過Facebook註冊</h2>
+    {% csrf_token %}
+    <input type="hidden" value="{{ request.path }}" name="next" />
+
+    <div id="facebook_login_js">
+    <input onclick="F.connect(this.parentNode.parentNode); return false;" type="image" src="{% static 'facebook/images/facebook_login.png' %}" />
+    </div>
+    <p class="errmsg">注意！當您透過Facebook註冊同時，代表您亦同意<a href="{% url 'toc' %}" target="_blank" style="color:#0099ff">本網站使用條款</a></p>
+</form>
+
+<br>
+<h2>或是透過以下表單註冊</h2>
+
+<form class="pure-form" method='post' action=''>{% csrf_token %}
+    <table class="pure-table">
+        <tbody>
+        <tr>
+            <td>帳號：</td>
+            <td>{{form.username}}<span class="errmsg">{{form.username.errors.as_text}}</span></td>
+        </tr>
+        <tr>
+            <td>註冊信箱：</td>
+            <td>{{form.email}}<span class="errmsg">{{form.email.errors.as_text}}</span></td>
+        </tr>
+        <tr>
+            {{form.password1.errors}}
+            <td>密碼：</td>
+            <td>{{form.password1}}<span class="errmsg">{{form.password1.errors.as_text}}</span></td>
+        </tr>
+        <tr>
+            <td>密碼確認：</td>
+            <td>{{form.password2}}<span class="errmsg">{{form.password2.errors.as_text}}</span></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p>
+        <label for="id_tos">我接受<a href="{% url 'toc' %}" target="_blank"><span style="color:#0099ff;">本網站使用條款</span></a></label>
+        {{ form.tos }}
+        {% if form.tos.errors %}
+            <span class="error_msg">{{ form.tos.errors.as_text }}</span>
+        {% endif %}
+    
+    </p>
+    <p>
+        {{form.captcha}}
+        {% if form.captcha.errors %}
+            <span class="error_msg">*Try again!</span>
+        {% endif %}    
+    </p>
+    
+    
+    <p><input class="pure-button pure-button-primary" type="submit" value="{% trans "寄送驗證碼" %}" /></p>
+</form>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+
+<script>
+$(function() {
+    $("#id_email").prop('title', "{{form.email.help_text}}");
+    // Add refresh button after field (this can be done in the template as well)
+    $('input#id_captcha_1').after(
+            $('<span> </span><a href="#void" class="captcha-refresh pure-button">換一張</a>')
+            );
+
+    // Click-handler for the refresh-link
+    $('.captcha-refresh').click(function(){
+        var $form = $(this).parents('form');
+        var url = location.protocol + "//" + window.location.hostname + ":"
+                  + location.port + "/copen" + "/captcha/refresh/";
+
+        // Make the AJAX-call
+        $.getJSON(url, {}, function(json) {
+            $form.find('input[name="captcha_0"]').val(json.key);
+            $form.find('img.captcha').attr('src', json.image_url);
+        });
+
+        return false;
+    });
+});
+</script>
+<script>
+
+</script>
+{% endblock %}
+
+{% block extra_css %}
+
+<style>
+table {
+  border:0 !important;
+}
+table td {
+  border:0 !important;
+}
+</style>
+{% endblock %}

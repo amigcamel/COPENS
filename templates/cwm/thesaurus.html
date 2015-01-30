@@ -1,0 +1,21 @@
+{% extends "search.html" %}
+{% block nav_the %}current{% endblock %}
+{% block header %}Thesaurus{% endblock %}
+{% block content %}
+<section id="content">
+{% if thesform %}
+    <form action="{% url 'thesaurus' %}" method="post">{% csrf_token %}
+        {{thesform.as_p}}
+        <input id="button" class="btn" type="submit" value="Submit" />
+    </form>
+{% else %}
+    {% if word_sim_list %}
+        {% for word_sim in word_sim_list %}
+            <p>{{word_sim}}</p>
+        {% endfor %}
+    {% else %}
+        <h3>查無資料</h3>
+    {% endif %}
+{% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,182 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>CWM - LOPE</title>
+<meta name="description" content="CWM - LOPE">
+<meta name="keywords" content="">
+
+<!-- Mobile viewport -->
+<meta name="viewport" content="width=device-width; initial-scale=1.0">
+
+<link rel="shortcut icon" href="images/favicon.ico"  type="image/x-icon" />
+
+<!-- CSS-->
+<!-- Google web fonts. You can get your own bundle at http://www.google.com/fonts. Don't forget to update the CSS accordingly!-->
+<link href='http://fonts.googleapis.com/css?family=Droid+Serif|Ubuntu' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" href='{% static "css/normalize.css" %}'>
+<link rel="stylesheet" href='{% static "js/flexslider/flexslider.css" %}'>
+<link rel="stylesheet" href='{% static "css/basic-style.css" %}'>
+{% block extra_css%}{% endblock %}
+<!-- end CSS-->
+    
+<!-- JS-->
+<script src='{% static "js/libs/modernizr-2.6.2.min.js" %}'></script>
+<!-- end JS-->
+
+</head>
+
+<body id="home">
+<!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+  
+<!-- header area -->
+    <header class="wrapper clearfix">
+		       
+        <div id="banner">        
+        	<div id="logo"><a href="{% url 'home' %}"><img src="http://lope.linguistics.ntu.edu.tw/images/logo.jpg" alt="logo"></a></div> 
+        </div>
+        
+        <!-- main navigation -->
+        <nav id="topnav" role="navigation">
+        <div class="menu-toggle">Menu</div>  
+        	<ul class="srt-menu" id="menu-main-navigation">
+
+            <li><a href="{% url 'home' %}">Home</a></li>
+			
+                        {% if user.is_authenticated %}
+                           <li><a href="{% url "auth_logout" %}">Logout ({{user}})</a></li> 
+                        {% else %}
+			   <li><a href="{% url "auth_login" %}">Login</a></li>
+                           <li><a href="{% url "registration_register" %}">Register</a></li>
+                        {% endif %}
+			</li>	
+
+		</ul>     
+		</nav><!-- #topnav -->
+  
+    </header><!-- end header -->
+ 
+ 
+<section id="page-header" class="clearfix">    
+<!-- responsive FlexSlider image slideshow -->
+<div class="wrapper">
+	<h1>
+                {% if err_input %}
+                <div class='errmsg'>{{err_input}}</div>
+                {% endif %}
+                <form action="{% url 'cwm.views.home' %}" method="post">{% csrf_token %}
+                          {{ form.query.errors }}
+                          {{ search_form.query }}
+                <input id="namanyay-search-btn" value="Search" type="submit"/>
+                
+                {% for choice in search_form.database.field.choices %}
+                <div class="chkbox">
+
+                    <label><input name="database" type="checkbox" value="{{choice.0}}" 
+                    {% ifequal search_form.database.data choice.0 %}
+                             checked="checked"
+                    {% endifequal %}/>
+                    {{choice.1}}</label>             
+                </div>
+                {% endfor %} 
+                {% if err_select %}
+                <div class="errmsg">{{err_select}}</div>
+                {% endif %}
+                </form>
+            {% if query %}
+            {% if database %}
+                <font size="4px" color="grey">
+                關鍵字: <u>{{query}}</u> 語料庫:
+                {% for db in database %}
+                <u>{{db.1}}</u>
+                {% endfor %}
+                </font>
+                <a href="{% url 'cwm.views.clear_session'%}">清除</a>
+            {% endif %}
+            {% endif %}
+
+<!--
+        <form id="searchthis" action="/search" style="display:inline;" method="get">
+         Search box for blogger by Namanyay Goel
+        <input id="namanyay-search-box" name="q" size="40" type="text" placeholder="  請輸入關鍵字"/>
+        <input id="namanyay-search-btn" value="Search" type="submit"/>
+        </form>
+-->
+<!--
+    </h1>
+    <div class="chkbox"><label>新聞</label><input type="checkbox" /></div>
+    <div class="chkbox"><label>社會網絡</label><input type="checkbox" /></div>
+    <div class="chkbox"><label>兒語習得</label><input type="checkbox" /></div>
+</div>
+-->
+</section>
+
+
+<!-- main content area -->   
+<div class="wrapper" id="main"> 
+    
+<!-- content area -->    
+	<section id="content">
+    
+                <h1>{% block header %}{% endblock %}</h1>
+                <p>{% block content %}{% endblock  %}</p>
+                               
+
+                
+
+</section><!-- #end content area -->
+      
+      
+    <!-- left sidebar -->    
+    <aside>
+        <!-- <h2>Secondary Section menu</h2> -->
+            <nav id="secondary-navigation">
+                    <ul>
+                        <!-- <li><a href="#">menu item</a></li> -->
+                        <li class="{% block nav_con %}{% endblock %}"><a href="{% url 'concordance' %}">Concordance</a></li>
+                        <li class="{% block nav_col %}{% endblock %}"><a href="{% url 'collocation' %}">Collocation</a></li>
+                        <li class="{% block nav_wor %}{% endblock %}"><a href="{% url 'wordlist' %}">Wordlist</a></li>
+                        <li class="{% block nav_ske %}{% endblock %}"><a href="{% url 'sketch' %}">Sketch</a></li> 
+                        <li class="{% block nav_key %}{% endblock %}"><a href="{% url 'keyness' %}">Keyness</a></li>
+                        <li class="{% block nav_emo %}{% endblock %}"><a href="{% url 'emotion' %}">Emotion</a></li>
+                        <li class="{% block nav_the %}{% endblock %}"><a href="{% url 'thesaurus' %}">Thesaurus</a></li>
+                    </ul>
+             </nav>
+      </aside><!-- #end left sidebar -->
+   
+  </div><!-- #end div #main .wrapper -->
+    
+
+
+<!-- footer area -->    
+<footer>
+	<div id="colophon" class="wrapper clearfix">
+    	Copyright © 2014 - All Rights Reserved - LOPE Lab, Graduate Institutue of Linguistics, National Taiwan University
+    </div>
+    
+    <!--You can NOT remove this attribution statement from any page, unless you get the permission from prowebdesign.ro--><div id="attribution" class="wrapper clearfix" style="color:#666; font-size:11px;"><!-- Site built with <a href="http://www.prowebdesign.ro/simple-responsive-template/" target="_blank" title="Simple Responsive Template is a free software by www.prowebdesign.ro" style="color:#777;">Simple Responsive Template</a></div> --><!--end attribution-->
+    
+</footer><!-- #end footer area --> 
+
+
+<!-- jQuery -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src='{% static "js/libs/jquery-1.9.0.min.js" %}'>\x3C/script>')</script>
+
+<script defer src='{% static "js/flexslider/jquery.flexslider-min.js" %}'></script>
+
+<!-- fire ups - read this file!  -->   
+<script src='{% static "js/main.js" %}'></script>
+
+</body>
+</html>

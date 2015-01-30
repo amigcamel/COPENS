@@ -1,0 +1,75 @@
+{% extends "search.html" %}
+{% block nav_col %}current{% endblock nav_col %}
+{% block header %}Collocation{% endblock header %}
+{% block content %}
+    <section id="content">
+        {% if colloform %}
+            <div class="grid_6">
+                <form action="{% url 'collocation' %}" method="POST" class="pure-form">{% csrf_token %}
+                    {{colloform.as_p}}
+                    <button class="pure-button">送出</button>
+                </form>
+            </div>
+            <div class="grid_6">
+                <h2>不明白這些選項的意義嗎？</h2>
+                <a href="" onclick="$('.helptext').css('display', 'block');return false;" class="buttonlink entypo-lamp"> 顯示說明</a>
+            </div>
+        {% else %}
+        <p>您選擇的演算法：{{collodic.items.0.1.keys.0}}</p>
+        <hr>
+        {% for corp, dic in collodic.items %}
+            <div class="grid_6">
+                <h3>{{corp}}</h3>
+                <table class="pure-table" id="table_{{forloop.counter}}">
+                    <thead>
+                        <tr>
+                            <th>w1</th>
+                            <th>w2</th>
+                            <th>Value</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for algo, dicin in dic.items  %}
+                        {% for i in dicin %}
+                            <tr>
+                                <td>{{i.collos.0}}</td>
+                                <td>{{i.collos.1}}</td>
+                                <td>{{i.value}}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endfor %}
+        {% endif %}
+        
+    </section>
+{% endblock content %}
+{% block extra_js %}
+    {% if not form %}
+        <script src="http://datatables.net/release-datatables/media/js/jquery.dataTables.js"></script>
+        <script>
+            $(document).ready( function () 
+            {
+                var oTable = $('table[id^="table_"]').dataTable( 
+                {
+                        "sScrollY": "400px",
+                        "sScrollX": "100%",
+                        "sScrollXInner": "100%",
+                        "bScrollCollapse": true,
+                        "bPaginate": false,
+                        "bInfo": false,
+                        "bFilter": false,
+                        "bSort": false
+                } );
+                new FixedColumns( oTable, 
+                {
+                        "sHeightMatch": "none"
+                } );
+            } );
+        </script>
+    {% endif %}
+{% endblock %}

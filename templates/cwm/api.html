@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load load_settings %}
+{% load staticfiles %}
+{% load pygmentify %}
+
+{% block h1 %}API (應用程式介面){% endblock h1 %}
+{% block nav_api %}current{% endblock nav_api%}
+{% block content %}
+<section>
+{% pygment %}
+
+<h2>API url</h2>
+<pre>http://lopen.linguistics.ntu.edu.tw/copens/api/</pre>
+<hr>
+<h2>限制</h2>
+每分鐘最大讀取次數為{% settings_value "REST_FRAMEWORK" "DEFAULT_THROTTLE_RATES" "user" %}
+<hr>
+<h2>驗證方式</h2>
+本API使用Token 驗證<br>
+已登入之使用者可經由
+{% if request.user.is_authenticated %}
+    <a href="{% url 'profile' %}" style="color:#0099ff">控制臺</a>
+{% else %}
+    控制臺
+{% endif %}
+得到屬於您的專屬Token
+<hr>
+<h2>以下以Python為例</h2>
+
+<pre lang="python">
+import urllib2
+
+opener = urllib2.build_opener()
+opener.addheaders = [('Authorization', 'Token <TOKEN>')]
+</pre>
+
+<h3>測試</h3>
+
+<pre lang="python">
+res = opener.open('http://lopen.linguistics.ntu.edu.tw/copens/api/test')
+res.read()
+</pre>
+驗證成功將會回傳<pre lang="python">{"status": "ok"}</pre>
+
+失敗則會出現
+<pre lang="python">
+HTTPError: HTTP Error 401: UNAUTHORIZED
+</pre>
+<a href="http://lopen.linguistics.ntu.edu.tw/copens/api/test" class="pure-button pure-button-primary">Try it</a>
+<hr>
+<h2>Retrieve Keyness</h2>
+<pre lang="python">
+urllib2.urlopen('http://lopen.linguistics.ntu.edu.tw/copens/api/keyness/宅男/asbc')
+</pre>
+<a href="http://lopen.linguistics.ntu.edu.tw/copens/api/keyness/宅男/asbc" class="pure-button pure-button-primary">Try it</a>
+<hr>
+<h2>Retrieve Thesaurus</h2>
+<pre lang="python">
+urllib2.urlopen('http://lopen.linguistics.ntu.edu.tw/copens/api/thesaurus/高興')
+</pre>
+<a href="http://lopen.linguistics.ntu.edu.tw/copens/api/thesaurus/高興" class="pure-button pure-button-primary">Try it</a>
+<hr>
+<h2>Sketch</h2>
+<pre lang="python">
+urllib2.urlopen('http://lopen.linguistics.ntu.edu.tw/copens/api/sketch/服貿')
+</pre>
+<a href="http://lopen.linguistics.ntu.edu.tw/copens/api/sketch/服貿" class="pure-button pure-button-primary">Try it</a>
+<br><br>
+{% endpygment %}
+</section>
+{% endblock content %}
+
+{% block extra_css %}
+    <link href="{% static 'css/emacs.css' %}" media="screen" rel="stylesheet" type="text/css" />
+    <style>
+        .hl {background-color:yellow;}
+        h3 {color:#835C3B !important; text-decoration:underline;}
+    </style>
+{% endblock extra_css %}
