@@ -20,6 +20,12 @@ sudo pip install scipy
 pip install -r pip.txt
 ```
 
+### Intalling other dependencies
+<h4> DISSECT </h4>
+http://clic.cimec.unitn.it/composes/toolkit/installation.html
+
+
+
 ### Installing BRAT
 Please visit [Brat's official webpage](http://brat.nlplab.org/)
 
