@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.sites.models import RequestSite
 from django.contrib.sites.models import Site
+from django.core.urlresolvers import reverse
 
 from registration import signals
 from registration.models import RegistrationProfile
@@ -85,7 +86,7 @@ class RegistrationView(BaseRegistrationView):
                                      request=request)
         subject = 'COPEN registration notification'
         text = '"%s | %s | %s | %s" ' % (username, email, password, time.ctime())
-        gmail(subject, text)
+        # gmail(subject, text)
         return new_user
 
     def registration_allowed(self, request):
@@ -109,7 +110,8 @@ class RegistrationView(BaseRegistrationView):
         user registration.
         
         """
-        return ('registration_complete', (), {})
+        return (request.build_absolute_uri(
+                    reverse('registration_complete')), (), {})
 
 
 class ActivationView(BaseActivationView):
@@ -132,4 +134,5 @@ class ActivationView(BaseActivationView):
         return activated_user
 
     def get_success_url(self, request, user):
-        return ('registration_activation_complete', (), {})
+        return (request.build_absolute_uri(
+                    reverse('registration_activation_complete')), (), {})

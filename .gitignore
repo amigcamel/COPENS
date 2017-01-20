@@ -1,3 +1,4 @@
 *.pyc
-*settings_conf.py
 *db.sqlite3
+.python-version
+static_all/*

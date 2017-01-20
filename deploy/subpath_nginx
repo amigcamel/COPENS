@@ -1,0 +1,10 @@
+location /static_cwm {
+    alias /home/achiii/Github/copens/static_all;
+}   
+
+location /copens { 
+    uwsgi_pass      unix:///tmp/copens.sock;
+    uwsgi_param     SCRIPT_NAME /copens;
+    uwsgi_modifier1 30;
+    include         uwsgi_params;
+}   

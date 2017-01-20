@@ -1,0 +1,56 @@
+/* shamelessly borrowed from lettering.js */
+h1.copen {
+    font-weight: normal;
+    text-transform:uppercase;
+    font-family:'HelveticaNeue-Bold', 'League Gothic', 'Impact', sans-serif;
+    font-size:80px;
+    margin-bottom:-32px;
+    margin-left:120px;
+    color:#c44032;
+    text-shadow:#863027 -4px 4px 0;
+    margin-top:30px;
+}
+h1.copen span {
+    display:inline-block;
+    position:relative;
+    letter-spacing:-1px;
+    -webkit-transition:all 0.2s ease-out;
+}
+h1.copen span:hover {
+    top:3px
+}
+h1.copen .char2, h1.copen .char11 {
+    color:#e36b23;
+    text-shadow:#9b4d1f -4px 4px 0
+}
+h1.copen .char3, h1.copen .char10 {
+    z-index:10;
+    color:#e6c92e;
+    text-shadow:#9c8b26 -4px 4px 0
+}
+h1.copen .char4, h1.copen .char9 {
+    color:#5da028;
+    text-shadow:#427021 -4px 4px 0
+}
+h1.copen .char5, h1.copen .char8 {
+    color:#4584be;
+    text-shadow:#2f597f -4px 4px 0
+}
+h1.copen .char6, h1.copen .char7 {
+    color:#7073cf;
+    text-shadow:#4a4d88 -4px 4px 0
+}
+h1.copen .char1 {
+    -webkit-transform:rotate(-3deg)
+}
+h1.copen .char3 {
+    top:-1px;
+    -webkit-transform:rotate(2deg)
+}
+h1.copen .char4 {
+    top:-7px
+}
+h1.copen .char6 {
+    top:-7px;
+    -webkit-transform:rotate(2deg)
+}

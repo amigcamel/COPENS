@@ -1,8 +1,25 @@
+"""
+Django settings for copens project.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/1.6/topics/settings/
+
+For the full list of settings and their values, see
+https://docs.djangoproject.com/en/1.6/ref/settings/
+"""
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-from settings_conf import *
 import os, glob
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'b^t*u5vhgwcrw-q9dy0tqo^^_l@#32=#17ss2^t0wt@a7yg#&9'
+
+# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 TEMPLATE_DEBUG = DEBUG
@@ -11,7 +28,27 @@ ALLOWED_HOSTS = ['*']
 
 SITE_ID = 1
 
+#if DEBUG:
+#    EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+
+# EMAIL_HOST_USER = 'lope.cwm@gmail.com'
+# EMAIL_HOST_PASSWORD = 'C=-h>.\WKn[<9/)#}$es-Jl.?7f[(\)^i!:;Z;QR(i\:,pe=uh'
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "localhost"
+EMAIL_PORT = "25"
+EMAIL_HOST_USER = ""
+EMAIL_HOST_PASSWORD = ""
+EMAIL_USE_TLS = False
+DEFAULT_FROM_EMAIL = "copens <copens@lopen.linguistics.ntu.edu.tw>"
+
 LOGIN_REDIRECT_URL = 'home'
+
+# Application definition
 
 INSTALLED_APPS = (
     'control_panel',
@@ -56,6 +93,8 @@ WSGI_APPLICATION = 'copens.wsgi.application'
 
 
 # Database
+# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -64,6 +103,8 @@ DATABASES = {
 }
 
 # Internationalization
+# https://docs.djangoproject.com/en/1.6/topics/i18n/
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Taipei'
@@ -76,10 +117,13 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.6/howto/static-files/
+
 STATIC_URL = '/static_cwm/'
 STATICFILES_DIRS = (
     os.path.join(os.path.dirname(os.path.dirname(__file__)),'static'),
 )
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_all')
 
 from registration_defaults.settings import *
 
@@ -106,8 +150,9 @@ AUTHENTICATION_BACKENDS = (
 
 SESSION_COOKIE_AGE = 365 * 24 * 60 * 600
 
-#Django-endless-pagination settings
 ENDLESS_PAGINATION_PER_PAGE = 100
+
+
 
 # URL of the login page.
 LOGIN_URL = '/login/'
@@ -122,6 +167,12 @@ UPLOAD_FILE_DIRS = os.path.join(BASE_DIR, 'upload_files')
 #            "Undefined variable or unknown value for: \"%s\"" % other)
 #
 #TEMPLATE_STRING_IF_INVALID = InvalidString("%s")
+
+FACEBOOK_APP_ID = ''
+FACEBOOK_APP_SECRET = '' 
+
+AUTH_PROFILE_MODULE = 'django_facebook.FacebookProfile'
+FACEBOOK_LOGIN_DEFAULT_REDIRECT = '/copens' 
 
 
 REST_FRAMEWORK = {

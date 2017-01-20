@@ -10,7 +10,7 @@
             <input id="namanyay-search-btn" value="Go" type="submit"/>
             <br>
             <div style="font-size:13px;color:#0099ff">若要使用CQL，請在開頭輸入"cql:"，例：cql:[word="台大"]
-             （有關CQL，請參見本頁下方）</div>
+             （有關CQL，請參見本頁下方。）</div>
         </div>
         <br>
         {% for cat, corps in CHOICE%}
@@ -101,7 +101,7 @@
 {% block extra_js %}
     <script>
         {% if not user.is_authenticated %}
-            $('#id_ch_6').remove();
+            $('#id_ch_7').remove();
         {% endif %}
     </script>
 {% endblock extra_js %}

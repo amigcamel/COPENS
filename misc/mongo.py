@@ -1,9 +1,8 @@
-from django.conf import settings
 from pymongo import MongoClient
 
 def mongoDB(db, collection=None):
-    client = MongoClient('localhost')
-    client.admin.authenticate(settings.MONGO_USER, settings.MONGO_PASSWORD)
+    client = MongoClient('')
+    client.admin.authenticate('', '')
     if collection:
         output = client[db][collection]
     else:

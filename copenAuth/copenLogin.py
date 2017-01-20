@@ -2,7 +2,7 @@ from django.contrib.auth.views import login
 
 def copenLogin(request):
     response = login(request)
-    response = bratLogin(request, response)
+    # response = bratLogin(request, response)
     return response
 
 
@@ -29,9 +29,11 @@ def bratLogin(request, response, server_path="/var/www/html/brat/server/src", se
     with open(ppath, 'wb') as f:
         pickle.dump(current_session, f)
     try:
-        os.chown(ppath, 33, 33)
-    except:
-        raise Exception('If you\'re using "RUNSERVER", do it with root!')
+        os.chown(ppath, 1002, 1002)
+    except Exception as ex:
+        print (ex)
+        # raise Exception('If you\'re using "RUNSERVER", do it with root!')
+        raise Exception('If you are using "RUNSERVER", do it with root!')
     exp = (datetime.utcnow() + timedelta(30)).strftime('%a, %d %b %Y %H:%M:%S')
     response.set_cookie('sid', sid, path='/brat/', expires=exp)
 

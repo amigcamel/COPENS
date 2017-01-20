@@ -8,7 +8,7 @@ def gmail(subject, text):
 	toaddrs  = ['', '']
 	msg = 'Subject: %s\n\n%s' % (subject, text)
 
-	username = ''
+	username = '.not'
 	password = None
 
 	server = smtplib.SMTP('smtp.gmail.com:587')
