@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os, glob
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
@@ -76,7 +75,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 )
 
-ACCOUNT_ACTIVATION_DAYS = 2 
+ACCOUNT_ACTIVATION_DAYS = 2
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -90,7 +89,6 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'copens.urls'
 
 WSGI_APPLICATION = 'copens.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
@@ -115,14 +113,12 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static_cwm/'
-STATICFILES_DIRS = (
-    os.path.join(os.path.dirname(os.path.dirname(__file__)),'static'),
-)
+STATICFILES_DIRS = (os.path.join(
+    os.path.dirname(os.path.dirname(__file__)), 'static'), )
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_all')
 
 from registration_defaults.settings import *
@@ -130,11 +126,11 @@ from registration_defaults.settings import *
 #TEMPLATE PATH
 TEMPLATE_DIRS = (
     REGISTRATION_TEMPLATE_DIR,
-    os.path.join(BASE_DIR, 'registration_defaults/templates/registration'), # --> this will override the above path
+    os.path.join(BASE_DIR, 'registration_defaults/templates/registration'
+                 ),  # --> this will override the above path
 )
 
 TEMPLATE_DIRS += tuple(glob.glob(os.path.join(BASE_DIR, 'templates/*')))
-
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
@@ -152,13 +148,10 @@ SESSION_COOKIE_AGE = 365 * 24 * 60 * 600
 
 ENDLESS_PAGINATION_PER_PAGE = 100
 
-
-
 # URL of the login page.
 LOGIN_URL = '/login/'
 
 UPLOAD_FILE_DIRS = os.path.join(BASE_DIR, 'upload_files')
-
 
 #class InvalidString(str):
 #    def __mod__(self, other):
@@ -169,11 +162,10 @@ UPLOAD_FILE_DIRS = os.path.join(BASE_DIR, 'upload_files')
 #TEMPLATE_STRING_IF_INVALID = InvalidString("%s")
 
 FACEBOOK_APP_ID = ''
-FACEBOOK_APP_SECRET = '' 
+FACEBOOK_APP_SECRET = ''
 
 AUTH_PROFILE_MODULE = 'django_facebook.FacebookProfile'
-FACEBOOK_LOGIN_DEFAULT_REDIRECT = '/copens' 
-
+FACEBOOK_LOGIN_DEFAULT_REDIRECT = '/copens'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -181,13 +173,10 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
-    'DEFAULT_THROTTLE_CLASSES': (
-        'rest_framework.throttling.AnonRateThrottle',
-        'rest_framework.throttling.UserRateThrottle'
-    ),
+    'DEFAULT_PERMISSION_CLASSES':
+    ('rest_framework.permissions.IsAuthenticated', ),
+    'DEFAULT_THROTTLE_CLASSES': ('rest_framework.throttling.AnonRateThrottle',
+                                 'rest_framework.throttling.UserRateThrottle'),
     'DEFAULT_THROTTLE_RATES': {
         'anon': '100/day',
         'user': '30/minute'
@@ -196,7 +185,6 @@ REST_FRAMEWORK = {
 
 # set forwarded_host to use x_forwarded_host in request.get_host
 # USE_X_FORWARDED_HOST = True
-
 
 # Configuration of Django-logger
 LOGGING = {

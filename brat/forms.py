@@ -1,17 +1,21 @@
 from django import forms
 from brat.models import BratModel
 
-FILE_SIZE_LIMIT = 2000 #kb
+FILE_SIZE_LIMIT = 2000  #kb
+
 
 class BratModelForm(forms.ModelForm):
-
-    class  Meta:
+    class Meta:
         model = BratModel
         fields = ('file_name', 'folder_name')
-        widgets = {'folder_name': forms.TextInput(attrs={'readonly':'readonly'}),}
+        widgets = {
+            'folder_name': forms.TextInput(attrs={'readonly': 'readonly'}),
+        }
 
-class UploadFile(forms.Form): 
-    upload_file  = forms.FileField(help_text="File size limit: %d KB" % FILE_SIZE_LIMIT)
+
+class UploadFile(forms.Form):
+    upload_file = forms.FileField(
+        help_text="File size limit: %d KB" % FILE_SIZE_LIMIT)
 
     def clean_upload_file(self):
         file_size_limit = FILE_SIZE_LIMIT * 1024
@@ -22,7 +26,9 @@ class UploadFile(forms.Form):
             raise forms.ValidationError('You have to upload a text file')
 
         if upload_file.size > file_size_limit:
-            raise forms.ValidationError('Please keep the file size under %d KB. Current size is %.1f KB.' % (FILE_SIZE_LIMIT, upload_file.size/1000.0))
+            raise forms.ValidationError(
+                'Please keep the file size under %d KB. Current size is %.1f KB.'
+                % (FILE_SIZE_LIMIT, upload_file.size / 1000.0))
         box = ''
         for chunk in upload_file.chunks():
             box += chunk

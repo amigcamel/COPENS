@@ -20,6 +20,7 @@ class RegistrationAdmin(admin.ModelAdmin):
         """
         for profile in queryset:
             RegistrationProfile.objects.activate_user(profile.activation_key)
+
     activate_users.short_description = _("Activate users")
 
     def resend_activation_email(self, request, queryset):
@@ -40,6 +41,7 @@ class RegistrationAdmin(admin.ModelAdmin):
         for profile in queryset:
             if not profile.activation_key_expired():
                 profile.send_activation_email(site)
+
     resend_activation_email.short_description = _("Re-send activation emails")
 
 

@@ -4,6 +4,7 @@ from django.conf import settings
 register = template.Library()
 import json
 
+
 # settings value
 @register.simple_tag
 def settings_value(name, *args):
@@ -18,4 +19,3 @@ def settings_value(name, *args):
             return res
         except:
             raise
-    

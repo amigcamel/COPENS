@@ -8,8 +8,10 @@ parser.add_argument('-t', '--token', help="specify query word")
 parser.add_argument('-w', '--windowsize', type=int, help='specify window size')
 parser.add_argument('-r', '--rsize', type=int, help="maximum query size")
 parser.add_argument('-p', '--showpos', type=int, help="show or hide pos")
-parser.add_argument('-a', '--auth', type=int, help='specify authentication status')
-parser.add_argument('-s', '--samplingnum', type=int, help='specify sampling number')
+parser.add_argument(
+    '-a', '--auth', type=int, help='specify authentication status')
+parser.add_argument(
+    '-s', '--samplingnum', type=int, help='specify sampling number')
 
 args = parser.parse_args()
 
@@ -40,7 +42,6 @@ import json, random
 #    conclst += cqp.conclst
 #print json.dumps(cqp.conclst)
 
-
 conclst = []
 for corpus_name in corpus_names:
     cqp = Cqp(corpus_name=corpus_name, auth=auth, window_size=window_size)
@@ -51,7 +52,6 @@ if sampling_num:
         sampling_num = len(conclst)
     conclst = random.sample(conclst, sampling_num)
 print json.dumps(conclst)
-
 
 #from cqpapi import Cqp
 #import sys
@@ -65,4 +65,3 @@ print json.dumps(conclst)
 #cqp = Cqp('asbc')
 #cqp.find(u'今天')
 #print cqp.conclst
-
