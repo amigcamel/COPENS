@@ -49,7 +49,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     (r'^facebook/', include('django_facebook.urls')),
     url(r'^accounts/login/$', copenLogin.copenLogin, name='copenLogin'),
-    (r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page': search}),
+    (r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page': 'home'}),
     url(r'^accounts/register/$', RegistrationView.as_view(form_class=LopeRegForm), name='registration_register'),
 
 #    url(r'^accounts/', include('registration_custom.auth_urls')),

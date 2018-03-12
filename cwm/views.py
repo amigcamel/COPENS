@@ -115,7 +115,7 @@ def concordance(request, show_pos=0, rsize=0, auth=1, sampling_num=0):
 #                                 auth=auth, 
 #                                 sampling_num=sampling_num) 
 
-            cmd = u'python /var/www/copens/cwm/cqpW.py -c %s -t %s -w %d -r %d -p %d -a %d -s %d' % (corpus_names, query, window_size, rsize, show_pos, auth, sampling_num)
+            cmd = u'/home/achiii/.pyenv/versions/copens/bin/python /var/www/copens/cwm/cqpW.py -c %s -t %s -w %d -r %d -p %d -a %d -s %d' % (corpus_names, query, window_size, rsize, show_pos, auth, sampling_num)
 
             cmd = cmd.encode('utf8').split()
             conclst = subprocess.check_output(cmd)

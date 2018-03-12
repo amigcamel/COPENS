@@ -20,6 +20,6 @@ def getToken(request):
         if not request.user.__dict__.has_key('auth_token'):
             token = Token.objects.create(user=request.user) 
             return HttpResponseRedirect(reverse(profile))
-    return HttpResponseRedirect(reverse('home'))
+    return HttpResponseRedirect(request.build_absolute_uri(reverse('home')))
     
     

@@ -46,7 +46,7 @@ EMAIL_HOST_PASSWORD = ""
 EMAIL_USE_TLS = False
 DEFAULT_FROM_EMAIL = "copens <copens@lopen.linguistics.ntu.edu.tw>"
 
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'http://lopen.linguistics.ntu.edu.tw/copens/'
 
 # Application definition
 
@@ -194,3 +194,26 @@ REST_FRAMEWORK = {
     },
 }
 
+# set forwarded_host to use x_forwarded_host in request.get_host
+# USE_X_FORWARDED_HOST = True
+
+
+# Configuration of Django-logger
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/home/achiii/Github/copens/log/debug.log',
+        },
+    },
+    'loggers': {
+        'cwm': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        }
+    },
+}

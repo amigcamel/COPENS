@@ -1,7 +1,10 @@
 from django.contrib.auth.views import login
+import logging
+
+# logger = logging.getLogger("cwm")
 
 def copenLogin(request):
-    response = login(request)
+    response = login(request, redirect_field_name="redirect_url")
     # response = bratLogin(request, response)
     return response
 
