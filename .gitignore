@@ -2,3 +2,6 @@
 *db.sqlite3
 .python-version
 static_all/*
+log/
+dissect/dist/*
+dissect/build/*
