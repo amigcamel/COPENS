@@ -17,5 +17,5 @@ def settings_value(name, *args):
             res = res[k]
         except StopIteration:
             return res
-        except:
+        except Exception:
             raise

@@ -34,6 +34,6 @@ class UploadFile(forms.Form):
             box += chunk
         try:
             box.decode('utf-8')
-        except:
+        except Exception:
             raise forms.ValidationError('File should be encoded in utf-8')
         return box

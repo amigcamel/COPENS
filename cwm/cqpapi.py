@@ -8,7 +8,7 @@ PyCQP_interface.cMaxRequestProcTime = 240  #This setting is extremely important!
 
 try:
     from cwm.forms import dbdic
-except:
+except Exception:
     CHOICE = (
         (u'新聞', (('cna', '中央通訊社'), ('asbc', '中研院平衡語料庫'))),
         (u'社會網絡', (('plurk', u'噗浪'), ('ptt', u'批踢踢'))),
@@ -29,7 +29,7 @@ except:
 
 try:
     from ajilock.lock import Cypher
-except:
+except Exception:
     import sys
     sys.path.append('/var/www/copens')
     from ajilock.lock import Cypher
@@ -50,7 +50,7 @@ class Cqp(object):
         else:
             try:
                 token.decode('utf-8')
-            except:
+            except Exception:
                 raise UnicodeError('Encoding error!')
         self.conclst = []
         registry_dir = '/usr/local/share/cwb/registry'
@@ -159,7 +159,7 @@ def convertCQL(string):
     if not isinstance(string, unicode):
         try:
             string = string.decode('utf8')
-        except:
+        except Exception:
             raise UnicodeError('string must be unicode or utf8')
     if 'x' in string:  #\x should be considered
         res = re.split('((?:x){1,})', string)

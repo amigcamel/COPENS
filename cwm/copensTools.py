@@ -55,7 +55,7 @@ def getKeyness(query, ref_corp, database):
                 rescon.append((b, res))
         except IOError:
             pass  # 有一些資料尚未進來！
-        except:
+        except Exception:
             raise
     return rescon
 
@@ -72,7 +72,7 @@ def getThesaurus(word):
     else:
         try:
             word.decode('utf-8')
-        except:
+        except Exception:
             raise
 
     # find synonyms in chilin
@@ -123,7 +123,7 @@ def getSketch(query, min_logdice=None, min_occ=None):
         res = res.next()
     except StopIteration:
         return None
-    except:
+    except Exception:
         raise
     if not min_logdice == min_occ == None:
         occ, collos = res['occ'], res['collos']
@@ -150,7 +150,7 @@ def getCollocation(query, corp_lst, algo_lst, stopword_filter=None):
     if not isinstance(query, unicode):
         try:
             query = query.decode('utf8')
-        except:
+        except Exception:
             raise UnicodeError('query should be utf8 or unicode!')
     if not isinstance(corp_lst, list):
         raise TypeError('corp_lst must be a list')
@@ -244,6 +244,6 @@ def getWordlist(database,
             output[dn] = con
         except StopIteration:
             pass
-        except:
+        except Exception:
             raise
     return output
