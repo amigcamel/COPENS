@@ -1,3 +1,9 @@
+import re
+from django.contrib.auth.models import User
+from registration.forms import RegistrationForm
+from registration.backends.default.views import RegistrationView
+from captcha.fields import CaptchaField
+from registration.forms import RegistrationFormTermsOfService
 
 from django import forms
 from django.forms.extras.widgets import SelectDateWidget
@@ -100,14 +106,14 @@ class KeynessForm(forms.Form):
     reference_corpus = forms.ChoiceField(choices=DB_CHOICE)
 
 
-from registration.forms import RegistrationFormTermsOfService
-from captcha.fields import CaptchaField
 
-from registration.backends.default.views import RegistrationView
-from registration.forms import RegistrationForm
 
-from django.contrib.auth.models import User
-import re
+
+
+
+
+
+
 
 
 def ajiEmailValidator(email):

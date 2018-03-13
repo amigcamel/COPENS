@@ -1,3 +1,4 @@
+from registration_defaults.settings import *
 """
 Django settings for copens project.
 
@@ -121,7 +122,7 @@ STATICFILES_DIRS = (os.path.join(
     os.path.dirname(os.path.dirname(__file__)), 'static'), )
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_all')
 
-from registration_defaults.settings import *
+
 
 #TEMPLATE PATH
 TEMPLATE_DIRS = (

@@ -1,3 +1,4 @@
+from models import Ptt
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 
@@ -14,7 +15,7 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'name')
 
 
-from models import Ptt
+
 
 
 class PttSerializer(serializers.Serializer):

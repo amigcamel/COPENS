@@ -1,3 +1,4 @@
+import re, itertools
 #-*-coding:utf8-*-
 from __future__ import division
 from CWB.CL import Corpus
@@ -152,7 +153,7 @@ class Cqp(object):
 #        os.system('kill -9 $(pidof cqp)')
 
 ###############
-import re, itertools
+
 
 
 def convertCQL(string):

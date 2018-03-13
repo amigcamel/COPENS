@@ -1,3 +1,5 @@
+import json, random
+from cqpapi import Cqp
 #-*-coding:utf8-*-
 import argparse
 
@@ -32,8 +34,8 @@ sampling_num = args.samplingnum
 if sampling_num == 0:
     sampling_num is None
 
-from cqpapi import Cqp
-import json, random
+
+
 
 #conclst = []
 #for corpus_name in corpus_names:

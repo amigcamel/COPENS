@@ -1,3 +1,6 @@
+from collections import Counter
+import subprocess, json
+from copensTools import getKeyness, getThesaurus, getSketch, getCollocation
 
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
@@ -10,7 +13,7 @@ from ajilock.lock import Cypher
 from CWB.CL import Corpus
 cy = Cypher()
 
-from copensTools import getKeyness, getThesaurus, getSketch, getCollocation
+
 
 
 def con_source(request, qpos):
@@ -99,8 +102,8 @@ def search(request):
         context_instance=RequestContext(request))
 
 
-import subprocess, json
-from collections import Counter
+
+
 
 
 def concordance(request, show_pos=0, rsize=0, auth=1, sampling_num=0):

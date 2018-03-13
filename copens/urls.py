@@ -1,3 +1,6 @@
+from django.contrib.auth.views import password_reset
+from cwm.forms import LopeRegForm
+from registration_custom.backends.default.views import RegistrationView
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
 from cwm.views import *
@@ -10,9 +13,9 @@ from about.views import *
 from django.contrib import admin
 admin.autodiscover()
 
-from registration_custom.backends.default.views import RegistrationView
-from cwm.forms import LopeRegForm
-from django.contrib.auth.views import password_reset
+
+
+
 
 urlpatterns = patterns(
     '',

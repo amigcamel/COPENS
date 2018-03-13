@@ -1,3 +1,7 @@
+from django.core.paginator import Paginator
+from rest_framework.pagination import PaginationSerializer
+from cwm.forms import DB_CHOICE
+from cwm.copensTools import getKeyness, getThesaurus, getSketch
 #from rest_framework import viewsets
 from django.http import HttpResponse
 #from django.http import JsonResponse --> works for django > 1.7
@@ -41,8 +45,8 @@ def concordance(request, query):
 #        serializedList = PttSerializer(pttcon, many=True)
 #        return Response(serializedList.data)
 
-from cwm.copensTools import getKeyness, getThesaurus, getSketch
-from cwm.forms import DB_CHOICE
+
+
 
 
 @api_view(['GET'])
@@ -54,8 +58,8 @@ def keyness(request, query, tar_corp):
     return HttpResponse(jsonDump(res))
 
 
-from rest_framework.pagination import PaginationSerializer
-from django.core.paginator import Paginator
+
+
 
 
 @api_view(['GET'])

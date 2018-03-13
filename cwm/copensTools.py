@@ -1,3 +1,7 @@
+from collections import OrderedDict
+from composes.similarity.cos import CosSimilarity
+from composes.semantic_space.space import Space
+from misc.mongo import mongoDB
 
 from __future__ import division
 from collections import Counter
@@ -6,7 +10,7 @@ import os, re, math, cPickle
 import sys
 CUR_PATH = os.path.dirname(os.path.abspath('.'))
 sys.path.append(CUR_PATH)
-from misc.mongo import mongoDB
+
 
 # Keyness
 #FDIST_PATH = os.path.join(CUR_PATH, "misc/fdist")
@@ -61,8 +65,8 @@ def getKeyness(query, ref_corp, database):
 
 
 # Thesaurus
-from composes.semantic_space.space import Space
-from composes.similarity.cos import CosSimilarity
+
+
 THES_PATH = '/var/www/copens/misc/thesaurus/'
 
 
@@ -140,7 +144,7 @@ def getSketch(query, min_logdice=None, min_occ=None):
 
 
 # Collocation
-from collections import OrderedDict
+
 
 
 def getCollocation(query, corp_lst, algo_lst, stopword_filter=None):
