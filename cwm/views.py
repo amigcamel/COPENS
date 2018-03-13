@@ -8,11 +8,11 @@ from copensTools import getThesaurus
 from copensTools import getSketch
 from copensTools import getCollocation
 
- 
+
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
- 
+
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 
@@ -26,8 +26,6 @@ from cwm.forms import ColloForm
 from ajilock.lock import Cypher
 from CWB.CL import Corpus
 cy = Cypher()
-
-
 
 
 def con_source(request, qpos):
@@ -69,10 +67,10 @@ def con_source(request, qpos):
         for a in attr_con:
             if start in xrange(a[0], a[1]):
                 sent =\
-                a[-1] + ': ' +\
-                ' '.join(words[a[0]:start]) + ' ' +\
-                '<span style="color:red;font-size:24px;">' + ' '.join(words[start:end]) + '</span>' + ' ' +\
-                ' '.join(words[end:a[1]])
+                    a[-1] + ': ' +\
+                    ' '.join(words[a[0]:start]) + ' ' +\
+                    '<span style="color:red;font-size:24px;">' + ' '.join(words[start:end]) + '</span>' + ' ' +\
+                    ' '.join(words[end:a[1]])
             else:
                 sent = '%s: %s' % (a[-1], ' '.join(words[a[0]:a[1]]))
             output += sent + '<br>'
@@ -114,10 +112,6 @@ def search(request):
     return render_to_response(
         'search.html', {'form': form},
         context_instance=RequestContext(request))
-
-
-
-
 
 
 def concordance(request, show_pos=0, rsize=0, auth=1, sampling_num=0):
@@ -242,7 +236,7 @@ def keyness(request):
         keynessform = KeynessForm(request.POST)
         if keynessform.is_valid():
             ref_corp = keynessform.cleaned_data['reference_corpus']
- 
+
             rescon = getKeyness(context['query'], ref_corp,
                                 context['database'])
             context['rescon'] = rescon

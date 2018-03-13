@@ -3,12 +3,12 @@
 import re
 from django.contrib.auth.models import User
 from registration.forms import RegistrationForm
- 
+
 from captcha.fields import CaptchaField
- 
+
 
 from django import forms
- 
+
 
 CHOICE = (
     (u'新聞', (('cna', '中央通訊社'), ('asbc', '中研院平衡語料庫'))),
@@ -106,16 +106,6 @@ class SketchForm(forms.Form):
 
 class KeynessForm(forms.Form):
     reference_corpus = forms.ChoiceField(choices=DB_CHOICE)
-
-
-
-
-
-
-
-
-
-
 
 
 def ajiEmailValidator(email):

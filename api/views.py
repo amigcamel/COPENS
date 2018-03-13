@@ -1,23 +1,21 @@
 # -*- coding: utf-8 -*-
 
- 
- 
+
 from cwm.forms import DB_CHOICE
 from cwm.copensTools import getKeyness
 from cwm.copensTools import getThesaurus
 from cwm.copensTools import getSketch
 #from rest_framework import viewsets
 from django.http import HttpResponse
-#from django.http import JsonResponse --> works for django > 1.7
- 
+# from django.http import JsonResponse --> works for django > 1.7
+
 from rest_framework.decorators import throttle_classes
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
- 
- 
- 
+
+
 from rest_framework.throttling import UserRateThrottle
- 
+
 import json
 
 
@@ -51,9 +49,6 @@ def concordance(request, query):
 #        return Response(serializedList.data)
 
 
-
-
-
 @api_view(['GET'])
 @throttle_classes([UserRateThrottle])
 def keyness(request, query, tar_corp):
@@ -61,10 +56,6 @@ def keyness(request, query, tar_corp):
     res = getKeyness(query, tar_corp, database)
     return HttpResponse(jsonDump(res), content_type="application/json")
     return HttpResponse(jsonDump(res))
-
-
-
-
 
 
 @api_view(['GET'])

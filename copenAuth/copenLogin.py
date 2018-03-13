@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib.auth.views import login
- 
+
 
 # logger = logging.getLogger("cwm")
 

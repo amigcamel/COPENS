@@ -5,9 +5,9 @@ from composes.similarity.cos import CosSimilarity
 from composes.semantic_space.space import Space
 from misc.mongo import mongoDB
 
- 
+
 import os
- 
+
 import math
 import cPickle
 
@@ -150,7 +150,6 @@ def getSketch(query, min_logdice=None, min_occ=None):
 # Collocation
 
 
-
 def getCollocation(query, corp_lst, algo_lst, stopword_filter=None):
     '''
     corp_lst should be a list of tuple, e.g., [('asbc', '中央研究院平衡語料庫'), ('plurk', '噗浪'), ...]
@@ -202,7 +201,7 @@ def getCollocation(query, corp_lst, algo_lst, stopword_filter=None):
 # Concordance
 #from cqpapi import Cqp
 #import random
-#def getConcordance(corpus_names, query, window_size=6, show_pos=False, rsize=None, auth=False, sampling_num=None):
+# def getConcordance(corpus_names, query, window_size=6, show_pos=False, rsize=None, auth=False, sampling_num=None):
 #    query = convertCQL(query)
 #    if not isinstance(corpus_names, list):
 #        raise TypeError('corpus_names must be a list!')

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
- 
+
 from cwm.forms import LopeRegForm
 from registration_custom.backends.default.views import RegistrationView
 from django.conf.urls import patterns
@@ -18,9 +18,6 @@ from about.views import *
 
 from django.contrib import admin
 admin.autodiscover()
-
-
-
 
 
 urlpatterns = patterns(

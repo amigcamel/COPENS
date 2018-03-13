@@ -1,13 +1,10 @@
 # -*- coding: utf-8 -*-
 
 
- 
- 
-
 from forms import SearchForm
 
 from forms import CHOICE
- 
+
 import itertools
 iterator = itertools.count()
 

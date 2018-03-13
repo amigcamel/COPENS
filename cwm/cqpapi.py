@@ -6,10 +6,11 @@ import itertools
 from __future__ import division
 from CWB.CL import Corpus
 import PyCQP_interface
- 
+
 import re
 
-PyCQP_interface.cMaxRequestProcTime = 240  #This setting is extremely important! The default value is 40, which means the maximum time a user can request is 40 second, but this will not suffice the condition that a user query some high frequency word like '今天' (because usually it takes more than a minute to finish querying).
+# This setting is extremely important! The default value is 40, which means the maximum time a user can request is 40 second, but this will not suffice the condition that a user query some high frequency word like '今天' (because usually it takes more than a minute to finish querying).
+PyCQP_interface.cMaxRequestProcTime = 240
 
 try:
     from cwm.forms import dbdic
@@ -159,14 +160,13 @@ class Cqp(object):
 ###############
 
 
-
 def convertCQL(string):
     if not isinstance(string, unicode):
         try:
             string = string.decode('utf8')
         except Exception:
             raise UnicodeError('string must be unicode or utf8')
-    if 'x' in string:  #\x should be considered
+    if 'x' in string:  # \x should be considered
         res = re.split('((?:x){1,})', string)
         res = [[i] if 'x' in i else list(i) for i in res]
         res = itertools.chain.from_iterable(res)
