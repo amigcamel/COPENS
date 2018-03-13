@@ -5,3 +5,4 @@ static_all/*
 log/
 dissect/dist/*
 dissect/build/*
+.envrc
