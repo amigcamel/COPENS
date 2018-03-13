@@ -6,13 +6,8 @@ from registration_defaults.settings import REGISTRATION_TEMPLATE_DIR
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'b^t*u5vhgwcrw-q9dy0tqo^^_l@#32=#17ss2^t0wt@a7yg#&9'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 TEMPLATE_DEBUG = DEBUG
@@ -30,8 +25,6 @@ EMAIL_USE_TLS = False
 DEFAULT_FROM_EMAIL = "copens <copens@lopen.linguistics.ntu.edu.tw>"
 
 LOGIN_REDIRECT_URL = 'http://lopen.linguistics.ntu.edu.tw/copens/'
-
-# Application definition
 
 INSTALLED_APPS = (
     'control_panel',
@@ -74,18 +67,12 @@ ROOT_URLCONF = 'copens.urls'
 
 WSGI_APPLICATION = 'copens.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
-# Internationalization
-# https://docs.djangoproject.com/en/1.6/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
@@ -96,9 +83,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static_cwm/'
 STATICFILES_DIRS = (os.path.join(
@@ -130,7 +114,6 @@ SESSION_COOKIE_AGE = 365 * 24 * 60 * 600
 
 ENDLESS_PAGINATION_PER_PAGE = 100
 
-# URL of the login page.
 LOGIN_URL = '/login/'
 
 UPLOAD_FILE_DIRS = os.path.join(BASE_DIR, 'upload_files')
@@ -157,10 +140,6 @@ REST_FRAMEWORK = {
     },
 }
 
-# set forwarded_host to use x_forwarded_host in request.get_host
-# USE_X_FORWARDED_HOST = True
-
-# Configuration of Django-logger
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
