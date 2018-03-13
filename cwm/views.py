@@ -1,15 +1,27 @@
 # -*- coding: utf-8 -*-
 
 from collections import Counter
-import subprocess, json
-from copensTools import getKeyness, getThesaurus, getSketch, getCollocation
+import subprocess
+import json
+from copensTools import getKeyness
+from copensTools import getThesaurus
+from copensTools import getSketch
+from copensTools import getCollocation
 
-from django.shortcuts import render, render_to_response
-from django.http import HttpResponse, HttpResponseRedirect
-from django.template import Context, RequestContext
+ 
+from django.shortcuts import render_to_response
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+ 
+from django.template import RequestContext
 from django.core.urlresolvers import reverse
 
-from cwm.forms import SearchForm, dbdic, ConcForm, SketchForm, KeynessForm, ColloForm
+from cwm.forms import SearchForm
+from cwm.forms import dbdic
+from cwm.forms import ConcForm
+from cwm.forms import SketchForm
+from cwm.forms import KeynessForm
+from cwm.forms import ColloForm
 
 from ajilock.lock import Cypher
 from CWB.CL import Corpus
@@ -182,7 +194,8 @@ def con_align(request, posi):
 
 def download_conc(request):
     from django.core.servers.basehttp import FileWrapper
-    import tempfile, csv
+    import tempfile
+    import csv
 
     temp = tempfile.TemporaryFile()
     conclst = request.session.get('conclst')
@@ -229,7 +242,7 @@ def keyness(request):
         keynessform = KeynessForm(request.POST)
         if keynessform.is_valid():
             ref_corp = keynessform.cleaned_data['reference_corpus']
-            from cwm.forms import DB_CHOICE
+ 
             rescon = getKeyness(context['query'], ref_corp,
                                 context['database'])
             context['rescon'] = rescon

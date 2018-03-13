@@ -3,9 +3,12 @@
 
 '''ref:http://stackoverflow.com/a/14838307/1105489'''
 
-from django.shortcuts import render, render_to_response
-from django.http import HttpResponse, HttpResponseRedirect
-from django.template import Context, RequestContext
+ 
+from django.shortcuts import render_to_response
+ 
+from django.http import HttpResponseRedirect
+ 
+from django.template import RequestContext
 from django.core.urlresolvers import reverse
 
 from rest_framework.authtoken.models import Token

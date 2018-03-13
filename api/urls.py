@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from django.conf.urls import url, include
-from api import views
+from django.conf.urls import url
+ 
+ 
 
 urlpatterns = [
     url(r'^test/$', 'api.views.test', name='api_test'),

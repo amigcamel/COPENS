@@ -3,12 +3,12 @@
 import re
 from django.contrib.auth.models import User
 from registration.forms import RegistrationForm
-from registration.backends.default.views import RegistrationView
+ 
 from captcha.fields import CaptchaField
-from registration.forms import RegistrationFormTermsOfService
+ 
 
 from django import forms
-from django.forms.extras.widgets import SelectDateWidget
+ 
 
 CHOICE = (
     (u'新聞', (('cna', '中央通訊社'), ('asbc', '中研院平衡語料庫'))),

@@ -3,7 +3,8 @@
 
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
-from django.template import Context, RequestContext
+ 
+from django.template import RequestContext
 from cwm.forms import dbdic
 from wordlist.forms import WordlistForm
 from cwm.copensTools import getWordlist
@@ -42,7 +43,8 @@ def wordlist(request, stopword_level=None):
 
 def download_wordlist(request, corpus_name):
     from django.core.servers.basehttp import FileWrapper
-    import tempfile, csv
+    import tempfile
+    import csv
 
     temp = tempfile.TemporaryFile()
 

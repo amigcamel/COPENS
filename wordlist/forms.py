@@ -2,7 +2,7 @@
 
 
 from django import forms
-from django.forms.extras.widgets import SelectDateWidget
+ 
 
 from cwm.forms import DB_CHOICE
 

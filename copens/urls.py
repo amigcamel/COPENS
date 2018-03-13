@@ -1,14 +1,18 @@
 # -*- coding: utf-8 -*-
 
-from django.contrib.auth.views import password_reset
+ 
 from cwm.forms import LopeRegForm
 from registration_custom.backends.default.views import RegistrationView
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns
+from django.conf.urls import include
+from django.conf.urls import url
 from django.views.generic import TemplateView
 from cwm.views import *
 from brat.views import *
-from control_panel.views import profile, getToken
-from wordlist.views import wordlist, download_wordlist
+from control_panel.views import profile
+from control_panel.views import getToken
+from wordlist.views import wordlist
+from wordlist.views import download_wordlist
 from copenAuth import copenLogin
 from about.views import *
 

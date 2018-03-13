@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 
-import re, itertools
+import re
+import itertools
 #-*-coding:utf8-*-
 from __future__ import division
 from CWB.CL import Corpus
 import PyCQP_interface
-import os, re
+ 
+import re
 
 PyCQP_interface.cMaxRequestProcTime = 240  #This setting is extremely important! The default value is 40, which means the maximum time a user can request is 40 second, but this will not suffice the condition that a user query some high frequency word like '今天' (because usually it takes more than a minute to finish querying).
 

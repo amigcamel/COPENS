@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib.auth.views import login
-import logging
+ 
 
 # logger = logging.getLogger("cwm")
 
@@ -23,10 +23,12 @@ def bratLogin(request,
     if not os.path.isdir(session_path):
         raise Exception('Invalid session_path')
     os.sys.path.append(server_path)
-    from session import SessionCookie, Session
+    from session import SessionCookie
+    from session import Session
 
     from hashlib import sha224
-    from datetime import datetime, timedelta
+    from datetime import datetime
+    from datetime import timedelta
     import pickle
     from ipware.ip import get_ip
 

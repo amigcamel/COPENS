@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from models import Ptt
-from django.contrib.auth.models import User, Group
+ 
+from django.contrib.auth.models import User
+from django.contrib.auth.models import Group
 from rest_framework import serializers
 
 

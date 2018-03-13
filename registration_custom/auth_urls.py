@@ -25,7 +25,7 @@ consult a specific backend's documentation for details.
 
 """
 
-from django.conf.urls import include
+ 
 from django.conf.urls import patterns
 from django.conf.urls import url
 

@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import render
-from django.shortcuts import render, render_to_response
-from django.http import HttpResponse, HttpResponseRedirect
-from django.template import Context, RequestContext
+ 
+ 
+from django.shortcuts import render_to_response
+ 
+from django.http import HttpResponseRedirect
+ 
+from django.template import RequestContext
 from django.core.urlresolvers import reverse
 
 from forms import *
@@ -12,7 +15,8 @@ from datetime import datetime
 from brat.models import BratModel
 
 from django.conf import settings
-import os, sys
+import os
+import sys
 
 sys.path.append('/var/www/html/project/bratAdapter')
 TAR_URL = 'http://140.112.147.121/brat/#/unchecked/%s/%s'

@@ -1,20 +1,23 @@
 # -*- coding: utf-8 -*-
 
-from django.core.paginator import Paginator
-from rest_framework.pagination import PaginationSerializer
+ 
+ 
 from cwm.forms import DB_CHOICE
-from cwm.copensTools import getKeyness, getThesaurus, getSketch
+from cwm.copensTools import getKeyness
+from cwm.copensTools import getThesaurus
+from cwm.copensTools import getSketch
 #from rest_framework import viewsets
 from django.http import HttpResponse
 #from django.http import JsonResponse --> works for django > 1.7
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.decorators import throttle_classes, api_view
+ 
+from rest_framework.decorators import throttle_classes
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from misc.mongo import mongoDB
-from models import Ptt
-from serializers import PttSerializer
+ 
+ 
+ 
 from rest_framework.throttling import UserRateThrottle
-from rest_framework.views import APIView
+ 
 import json
 
 

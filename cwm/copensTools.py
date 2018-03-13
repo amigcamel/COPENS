@@ -5,8 +5,11 @@ from composes.similarity.cos import CosSimilarity
 from composes.semantic_space.space import Space
 from misc.mongo import mongoDB
 
-from collections import Counter
-import os, re, math, cPickle
+ 
+import os
+ 
+import math
+import cPickle
 
 import sys
 CUR_PATH = os.path.dirname(os.path.abspath('.'))
