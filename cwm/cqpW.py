@@ -30,7 +30,7 @@ if rsize == 0:
 
 sampling_num = args.samplingnum
 if sampling_num == 0:
-    sampling_num == None
+    sampling_num is None
 
 from cqpapi import Cqp
 import json, random

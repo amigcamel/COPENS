@@ -125,7 +125,7 @@ def getSketch(query, min_logdice=None, min_occ=None):
         return None
     except Exception:
         raise
-    if not min_logdice == min_occ == None:
+    if not min_logdice == min_occ is None:
         occ, collos = res['occ'], res['collos']
         newdic = {}
         for k, v in collos.iteritems():
@@ -219,7 +219,7 @@ def getWordlist(database,
     if not isinstance(database, list):
         raise TypeError('database must be a list')
     if stopwords is True:
-        if stopword_level == None:
+        if stopword_level is None:
             raise Exception(
                 'stopword_level should be specify when stopwords is True')
     if stopwords:

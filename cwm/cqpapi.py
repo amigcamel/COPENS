@@ -69,7 +69,7 @@ class Cqp(object):
             cqp.Query('[word="%s"];' % token)
 
         _rsize = int(cqp.Exec("size Last;"))
-        if rsize == None:
+        if rsize is None:
             rsize = _rsize
         else:
             if rsize > _rsize:

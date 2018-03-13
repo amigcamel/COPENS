@@ -20,7 +20,7 @@ class UploadFile(forms.Form):
     def clean_upload_file(self):
         file_size_limit = FILE_SIZE_LIMIT * 1024
         upload_file = self.cleaned_data['upload_file']
-        if upload_file == None:
+        if upload_file is None:
             return upload_file
         if upload_file.content_type != 'text/plain':
             raise forms.ValidationError('You have to upload a text file')
