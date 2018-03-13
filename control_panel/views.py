@@ -1,4 +1,4 @@
-# -*-coding:utf-8-*-
+
 '''ref:http://stackoverflow.com/a/14838307/1105489'''
 
 from django.shortcuts import render, render_to_response
