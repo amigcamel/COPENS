@@ -13,7 +13,7 @@ class RegistrationView(BaseRegistrationView):
     workflow: a user supplies a username, email address and password
     (the bare minimum for a useful account), and is immediately signed
     up and logged in).
-    
+
     """
 
     def register(self, request, **cleaned_data):
@@ -38,7 +38,7 @@ class RegistrationView(BaseRegistrationView):
 
         * If ``REGISTRATION_OPEN`` is both specified and set to
           ``False``, registration is not permitted.
-        
+
         """
         return getattr(settings, 'REGISTRATION_OPEN', True)
 
