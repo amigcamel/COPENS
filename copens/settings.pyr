@@ -118,8 +118,8 @@ LOGIN_URL = '/login/'
 
 UPLOAD_FILE_DIRS = os.path.join(BASE_DIR, 'upload_files')
 
-FACEBOOK_APP_ID = os.environ['fb_app_id'] 
-FACEBOOK_APP_SECRET = os.environ['fb_app_secret'] 
+FACEBOOK_APP_ID = os.environ['fb_app_id']
+FACEBOOK_APP_SECRET = os.environ['fb_app_secret']
 
 AUTH_PROFILE_MODULE = 'django_facebook.FacebookProfile'
 FACEBOOK_LOGIN_DEFAULT_REDIRECT = '/copens'
