@@ -1,4 +1,4 @@
-#-*-coding:utf-8-*_
+# -*-coding:utf-8-*-
 import glob, re, os, nltk, cPickle
 
 VRT_PATH = "/var/local/LOPEN/corpus/CWB/vrt/"

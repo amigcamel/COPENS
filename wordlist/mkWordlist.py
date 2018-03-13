@@ -1,4 +1,4 @@
-#-*-coding:utf-8-*_
+# -*-coding:utf-8-*-
 import glob, re, os, nltk
 from pymongo import Connection
 C = Connection(host='localhost', port=27017)

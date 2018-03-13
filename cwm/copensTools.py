@@ -1,4 +1,4 @@
-#-*-coding:utf-8-*_
+# -*-coding:utf-8-*-
 from __future__ import division
 from collections import Counter
 import os, re, math, cPickle
