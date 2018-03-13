@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 
-from forms import *
+from forms import UploadFile, BratModelForm
 from datetime import datetime
 
 from brat.models import BratModel

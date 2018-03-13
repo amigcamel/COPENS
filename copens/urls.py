@@ -7,14 +7,17 @@ from django.conf.urls import patterns
 from django.conf.urls import include
 from django.conf.urls import url
 from django.views.generic import TemplateView
-from cwm.views import *
-from brat.views import *
+from cwm.views import (
+    search, download_conc, concordance, keyness,
+    sketch, collocation, emotion, thesaurus,
+)
+from brat.views import getBrat, setchecked, brat
 from control_panel.views import profile
 from control_panel.views import getToken
 from wordlist.views import wordlist
 from wordlist.views import download_wordlist
 from copenAuth import copenLogin
-from about.views import *
+from about.views import contact
 
 from django.contrib import admin
 admin.autodiscover()
