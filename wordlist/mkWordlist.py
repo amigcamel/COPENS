@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 
 import glob, re, os, nltk
 from pymongo import Connection

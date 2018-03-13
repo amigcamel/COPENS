@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from registration.backends.default.urls import *
 """
 Backwards-compatible URLconf for existing django-registration

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os
 
 ACCOUNT_ACTIVATION_DAYS = 2

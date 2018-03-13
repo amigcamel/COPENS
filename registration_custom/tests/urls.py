@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 URLs used in the unit tests for django-registration.
 

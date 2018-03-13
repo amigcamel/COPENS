@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.core.paginator import Paginator
 from rest_framework.pagination import PaginationSerializer
 from cwm.forms import DB_CHOICE

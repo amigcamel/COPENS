@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import re, itertools
 #-*-coding:utf8-*-
 from __future__ import division

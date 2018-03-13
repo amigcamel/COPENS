@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from registration_defaults.settings import *
 """
 Django settings for copens project.

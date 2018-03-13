@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 URL patterns for the views included in ``django.contrib.auth``.
 

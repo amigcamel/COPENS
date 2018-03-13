@@ -1,9 +1,10 @@
+# -*- coding: utf-8 -*-
+from __future__ import division
 from collections import OrderedDict
 from composes.similarity.cos import CosSimilarity
 from composes.semantic_space.space import Space
 from misc.mongo import mongoDB
 
-from __future__ import division
 from collections import Counter
 import os, re, math, cPickle
 

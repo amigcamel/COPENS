@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import re
 from django.contrib.auth.models import User
 from registration.forms import RegistrationForm

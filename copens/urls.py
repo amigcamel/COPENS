@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.contrib.auth.views import password_reset
 from cwm.forms import LopeRegForm
 from registration_custom.backends.default.views import RegistrationView

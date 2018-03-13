@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import random, json
 from os.path import join, abspath, dirname
 from string import digits, ascii_letters, ascii_lowercase

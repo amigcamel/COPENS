@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from registration.tests.default_backend import *
 from registration.tests.forms import *
 from registration.tests.models import *

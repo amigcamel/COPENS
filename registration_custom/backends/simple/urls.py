@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 URLconf for registration and activation, using django-registration's
 one-step backend.
