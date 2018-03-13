@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import datetime
 
 from django.conf import settings
@@ -7,10 +9,10 @@ from django.core import mail
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
-from registration import signals
-from registration.admin import RegistrationAdmin
+ 
+ 
 from registration.forms import RegistrationForm
-from registration.backends.default.views import RegistrationView
+ 
 from registration.models import RegistrationProfile
 
 
@@ -32,9 +34,10 @@ class DefaultBackendViewTests(TestCase):
         and set ``ACCOUNT_ACTIVATION_DAYS`` if it's not set already.
 
         """
-        self.old_activation = getattr(settings, 'ACCOUNT_ACTIVATION_DAYS', None)
+        self.old_activation = getattr(settings, 'ACCOUNT_ACTIVATION_DAYS',
+                                      None)
         if self.old_activation is None:
-            settings.ACCOUNT_ACTIVATION_DAYS = 7 # pragma: no cover
+            settings.ACCOUNT_ACTIVATION_DAYS = 7  # pragma: no cover
 
     def tearDown(self):
         """
@@ -43,7 +46,7 @@ class DefaultBackendViewTests(TestCase):
 
         """
         if self.old_activation is None:
-            settings.ACCOUNT_ACTIVATION_DAYS = self.old_activation # pragma: no cover
+            settings.ACCOUNT_ACTIVATION_DAYS = self.old_activation  # pragma: no cover
 
     def test_allow(self):
         """
@@ -63,12 +66,15 @@ class DefaultBackendViewTests(TestCase):
         # the 'registration is closed' message.
         resp = self.client.get(reverse('registration_register'))
         self.assertRedirects(resp, reverse('registration_disallowed'))
-        
-        resp = self.client.post(reverse('registration_register'),
-                                data={'username': 'bob',
-                                      'email': 'bob@example.com',
-                                      'password1': 'secret',
-                                      'password2': 'secret'})
+
+        resp = self.client.post(
+            reverse('registration_register'),
+            data={
+                'username': 'bob',
+                'email': 'bob@example.com',
+                'password1': 'secret',
+                'password2': 'secret'
+            })
         self.assertRedirects(resp, reverse('registration_disallowed'))
 
         settings.REGISTRATION_OPEN = old_allowed
@@ -81,10 +87,8 @@ class DefaultBackendViewTests(TestCase):
         """
         resp = self.client.get(reverse('registration_register'))
         self.assertEqual(200, resp.status_code)
-        self.assertTemplateUsed(resp,
-                                'registration/registration_form.html')
-        self.failUnless(isinstance(resp.context['form'],
-                        RegistrationForm))
+        self.assertTemplateUsed(resp, 'registration/registration_form.html')
+        self.failUnless(isinstance(resp.context['form'], RegistrationForm))
 
     def test_registration(self):
         """
@@ -93,11 +97,14 @@ class DefaultBackendViewTests(TestCase):
         sends an activation email.
 
         """
-        resp = self.client.post(reverse('registration_register'),
-                                data={'username': 'bob',
-                                      'email': 'bob@example.com',
-                                      'password1': 'secret',
-                                      'password2': 'secret'})
+        resp = self.client.post(
+            reverse('registration_register'),
+            data={
+                'username': 'bob',
+                'email': 'bob@example.com',
+                'password1': 'secret',
+                'password2': 'secret'
+            })
         self.assertRedirects(resp, reverse('registration_complete'))
 
         new_user = User.objects.get(username='bob')
@@ -107,7 +114,7 @@ class DefaultBackendViewTests(TestCase):
 
         # New user must not be active.
         self.failIf(new_user.is_active)
-        
+
         # A registration profile was created, and an activation email
         # was sent.
         self.assertEqual(RegistrationProfile.objects.count(), 1)
@@ -122,11 +129,14 @@ class DefaultBackendViewTests(TestCase):
         """
         Site._meta.installed = False
 
-        resp = self.client.post(reverse('registration_register'),
-                                data={'username': 'bob',
-                                      'email': 'bob@example.com',
-                                      'password1': 'secret',
-                                      'password2': 'secret'})
+        resp = self.client.post(
+            reverse('registration_register'),
+            data={
+                'username': 'bob',
+                'email': 'bob@example.com',
+                'password1': 'secret',
+                'password2': 'secret'
+            })
         self.assertEqual(302, resp.status_code)
 
         new_user = User.objects.get(username='bob')
@@ -135,7 +145,7 @@ class DefaultBackendViewTests(TestCase):
         self.assertEqual(new_user.email, 'bob@example.com')
 
         self.failIf(new_user.is_active)
-        
+
         self.assertEqual(RegistrationProfile.objects.count(), 1)
         self.assertEqual(len(mail.outbox), 1)
 
@@ -146,11 +156,14 @@ class DefaultBackendViewTests(TestCase):
         Registering with invalid data fails.
         
         """
-        resp = self.client.post(reverse('registration_register'),
-                                data={'username': 'bob',
-                                      'email': 'bob@example.com',
-                                      'password1': 'secret',
-                                      'password2': 'notsecret'})
+        resp = self.client.post(
+            reverse('registration_register'),
+            data={
+                'username': 'bob',
+                'email': 'bob@example.com',
+                'password1': 'secret',
+                'password2': 'notsecret'
+            })
         self.assertEqual(200, resp.status_code)
         self.failIf(resp.context['form'].is_valid())
         self.assertEqual(0, len(mail.outbox))
@@ -160,17 +173,22 @@ class DefaultBackendViewTests(TestCase):
         Activation of an account functions properly.
         
         """
-        resp = self.client.post(reverse('registration_register'),
-                                data={'username': 'bob',
-                                      'email': 'bob@example.com',
-                                      'password1': 'secret',
-                                      'password2': 'secret'})
+        resp = self.client.post(
+            reverse('registration_register'),
+            data={
+                'username': 'bob',
+                'email': 'bob@example.com',
+                'password1': 'secret',
+                'password2': 'secret'
+            })
 
         profile = RegistrationProfile.objects.get(user__username='bob')
 
-        resp = self.client.get(reverse('registration_activate',
-                                       args=(),
-                                       kwargs={'activation_key': profile.activation_key}))
+        resp = self.client.get(
+            reverse(
+                'registration_activate',
+                args=(),
+                kwargs={'activation_key': profile.activation_key}))
         self.assertRedirects(resp, reverse('registration_activation_complete'))
 
     def test_activation_expired(self):
@@ -178,20 +196,26 @@ class DefaultBackendViewTests(TestCase):
         An expired account can't be activated.
         
         """
-        resp = self.client.post(reverse('registration_register'),
-                                data={'username': 'bob',
-                                      'email': 'bob@example.com',
-                                      'password1': 'secret',
-                                      'password2': 'secret'})
+        resp = self.client.post(
+            reverse('registration_register'),
+            data={
+                'username': 'bob',
+                'email': 'bob@example.com',
+                'password1': 'secret',
+                'password2': 'secret'
+            })
 
         profile = RegistrationProfile.objects.get(user__username='bob')
         user = profile.user
-        user.date_joined -= datetime.timedelta(days=settings.ACCOUNT_ACTIVATION_DAYS)
+        user.date_joined -= datetime.timedelta(
+            days=settings.ACCOUNT_ACTIVATION_DAYS)
         user.save()
 
-        resp = self.client.get(reverse('registration_activate',
-                                       args=(),
-                                       kwargs={'activation_key': profile.activation_key}))
+        resp = self.client.get(
+            reverse(
+                'registration_activate',
+                args=(),
+                kwargs={'activation_key': profile.activation_key}))
 
         self.assertEqual(200, resp.status_code)
         self.assertTemplateUsed(resp, 'registration/activate.html')

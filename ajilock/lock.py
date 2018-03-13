@@ -1,13 +1,17 @@
-import random, json
+# -*- coding: utf-8 -*-
+
+import random
+import json
 from os.path import join, abspath, dirname
 from string import digits, ascii_letters, ascii_lowercase
 
 CUR_PATH = dirname(abspath(__file__))
 
+
 def gentab():
     punctuation = '.:-_'
-    cands = digits+ascii_letters+punctuation
-    real = digits+ascii_lowercase
+    cands = digits + ascii_letters + punctuation
+    real = digits + ascii_lowercase
     cor = random.sample(cands, len(real))
     real_dic = dict(zip(real, cor))
     dic_rev = dict()
@@ -23,7 +27,8 @@ def gentab():
     for i in jointer:
         dic_rev[i] = ' '
 
-    with open('lock.json', 'w') as lf, open('unlock.json', 'w') as uf, open('fake.json', 'w') as ff, open('jointer.json', 'w') as jf:
+    with open('lock.json', 'w') as lf, open('unlock.json', 'w') as uf, open(
+            'fake.json', 'w') as ff, open('jointer.json', 'w') as jf:
         json.dump(real_dic, lf)
         json.dump(dic_rev, uf)
         json.dump(fake, ff)
@@ -34,14 +39,20 @@ class Cypher(object):
     def __init__(self, slen=32):
         self.slen = slen
 
-        with open(join(CUR_PATH, 'lock.json')) as lf, open(join(CUR_PATH, 'unlock.json')) as uf, open(join(CUR_PATH, 'fake.json')) as ff, open(join(CUR_PATH, 'jointer.json')) as jf:
+        with open(join(CUR_PATH, 'lock.json')) as lf, open(
+                join(CUR_PATH, 'unlock.json')) as uf, open(
+                    join(CUR_PATH, 'fake.json')) as ff, open(
+                        join(CUR_PATH, 'jointer.json')) as jf:
             self.lock = json.load(lf)
             self.unlock = json.load(uf)
             self.fake = json.load(ff)
             self.jointer = json.load(jf)
 
     def encrypt(self, string):
-        string = [random.choice(self.jointer) if s == '_' else self.lock[s] for s in string]
+        string = [
+            random.choice(self.jointer) if s == '_' else self.lock[s]
+            for s in string
+        ]
         str_len = len(string)
         mask_len = self.slen - str_len
         real_pos = random.sample(range(self.slen), str_len)

@@ -1,4 +1,8 @@
-from django.contrib.auth.models import User, Group
+# -*- coding: utf-8 -*-
+
+
+from django.contrib.auth.models import User
+from django.contrib.auth.models import Group
 from rest_framework import serializers
 
 
@@ -14,17 +18,7 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'name')
 
 
-
-from models import Ptt
-
 class PttSerializer(serializers.Serializer):
     post_time = serializers.CharField(required=True, max_length=50)
     title = serializers.CharField(required=True, max_length=100)
     content = serializers.CharField(required=False, max_length=200)
-
-
-
-
-
-
-

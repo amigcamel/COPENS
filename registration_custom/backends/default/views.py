@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.conf import settings
 from django.contrib.sites.models import RequestSite
 from django.contrib.sites.models import Site
@@ -8,8 +10,6 @@ from registration.models import RegistrationProfile
 from registration.views import ActivationView as BaseActivationView
 from registration.views import RegistrationView as BaseRegistrationView
 
-from sendmail import gmail
-import time
 
 class RegistrationView(BaseRegistrationView):
     """
@@ -48,8 +48,9 @@ class RegistrationView(BaseRegistrationView):
     an instance of ``registration.models.RegistrationProfile``. See
     that model and its custom manager for full documentation of its
     fields and supported operations.
-    
+
     """
+
     def register(self, request, **cleaned_data):
         """
         Given a username, email address and password, register a new
@@ -74,18 +75,19 @@ class RegistrationView(BaseRegistrationView):
         class of this backend as the sender.
 
         """
-        username, email, password = cleaned_data['username'], cleaned_data['email'], cleaned_data['password1']
+        username, email, password = cleaned_data['username'], cleaned_data[
+            'email'], cleaned_data['password1']
         if Site._meta.installed:
             site = Site.objects.get_current()
         else:
             site = RequestSite(request)
-        new_user = RegistrationProfile.objects.create_inactive_user(username, email,
-                                                                    password, site)
-        signals.user_registered.send(sender=self.__class__,
-                                     user=new_user,
-                                     request=request)
-        subject = 'COPEN registration notification'
-        text = '"%s | %s | %s | %s" ' % (username, email, password, time.ctime())
+        new_user = RegistrationProfile.objects.create_inactive_user(
+            username, email, password, site)
+        signals.user_registered.send(
+            sender=self.__class__, user=new_user, request=request)
+        # subject = 'COPEN registration notification'
+        # text = '"%s | %s | %s | %s" ' % (username, email, password,
+        #                                  time.ctime())
         # gmail(subject, text)
         return new_user
 
@@ -100,7 +102,7 @@ class RegistrationView(BaseRegistrationView):
 
         * If ``REGISTRATION_OPEN`` is both specified and set to
           ``False``, registration is not permitted.
-        
+
         """
         return getattr(settings, 'REGISTRATION_OPEN', True)
 
@@ -108,10 +110,10 @@ class RegistrationView(BaseRegistrationView):
         """
         Return the name of the URL to redirect to after successful
         user registration.
-        
+
         """
-        return (request.build_absolute_uri(
-                    reverse('registration_complete')), (), {})
+        return (request.build_absolute_uri(reverse('registration_complete')),
+                (), {})
 
 
 class ActivationView(BaseActivationView):
@@ -124,15 +126,15 @@ class ActivationView(BaseActivationView):
         ``registration.signals.user_activated`` will be sent, with the
         newly activated ``User`` as the keyword argument ``user`` and
         the class of this backend as the sender.
-        
+
         """
-        activated_user = RegistrationProfile.objects.activate_user(activation_key)
+        activated_user = RegistrationProfile.objects.activate_user(
+            activation_key)
         if activated_user:
-            signals.user_activated.send(sender=self.__class__,
-                                        user=activated_user,
-                                        request=request)
+            signals.user_activated.send(
+                sender=self.__class__, user=activated_user, request=request)
         return activated_user
 
     def get_success_url(self, request, user):
         return (request.build_absolute_uri(
-                    reverse('registration_activation_complete')), (), {})
+            reverse('registration_activation_complete')), (), {})

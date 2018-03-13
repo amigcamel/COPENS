@@ -17,7 +17,7 @@ sudo pip install scipy
 
 ### Installing dependencies with PIP
 ```sh
-pip install -r pip.txt
+pip install -r requirements.txt
 ```
 
 ### Intalling other dependencies

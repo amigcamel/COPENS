@@ -1,8 +1,14 @@
-#-*-coding:utf-8-*_
-import glob, re, os, nltk, cPickle
+# -*- coding: utf-8 -*-
+
+# -*-coding:utf-8-*-
+import glob
+import re
+import os
+import nltk
+import cPickle
 
 VRT_PATH = "/var/local/LOPEN/corpus/CWB/vrt/"
-af = glob.glob(VRT_PATH+'/*.vrt')
+af = glob.glob(VRT_PATH + '/*.vrt')
 
 ptt_path = os.path.join(VRT_PATH, 'ptt.vrt')
 af.remove(ptt_path)
@@ -16,6 +22,6 @@ for f in af:
         toks = re.findall('(.*?)\t.*?\n', data)
         print 'making frequency distribution list...'
         fdist = nltk.FreqDist(toks)
-        with open(corp_name+'.cpkl', 'wb') as f:
+        with open(corp_name + '.cpkl', 'wb') as f:
             cPickle.dump(fdist, f)
         print 'DONE'

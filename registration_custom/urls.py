@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+
+
 """
 Backwards-compatible URLconf for existing django-registration
 installs; this allows the standard ``include('registration.urls')`` to
@@ -9,7 +12,6 @@ django-registration 1.0. For new installs, use
 
 import warnings
 
-warnings.warn("include('registration.urls') is deprecated; use include('registration.backends.default.urls') instead.",
-              DeprecationWarning)
-
-from registration.backends.default.urls import *
+warnings.warn(
+    "include('registration.urls') is deprecated; use include('registration.backends.default.urls') instead.",
+    DeprecationWarning)

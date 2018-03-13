@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 A management command which deletes expired accounts (e.g.,
 accounts which signed up but never activated) from the database.
