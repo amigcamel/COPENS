@@ -11,7 +11,7 @@ from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 
-from rest_framework.authtoken.models import Token
+# from rest_framework.authtoken.models import Token
 
 
 def profile(request):
@@ -24,7 +24,7 @@ def profile(request):
 
 def getToken(request):
     if request.user.is_authenticated():
-        if not request.user.__dict__.has_key('auth_token'):
-            token = Token.objects.create(user=request.user)
+        if 'auth_token' not in request.user.__dict__:
+            # token = Token.objects.create(user=request.user)
             return HttpResponseRedirect(reverse(profile))
     return HttpResponseRedirect(request.build_absolute_uri(reverse('home')))

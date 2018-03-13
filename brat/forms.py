@@ -3,7 +3,7 @@
 from django import forms
 from brat.models import BratModel
 
-FILE_SIZE_LIMIT = 2000  #kb
+FILE_SIZE_LIMIT = 2000  # kb
 
 
 class BratModelForm(forms.ModelForm):

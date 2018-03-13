@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 
 # -*-coding:utf-8-*-
-import glob, re, os, nltk, cPickle
+import glob
+import re
+import os
+import nltk
+import cPickle
 
 VRT_PATH = "/var/local/LOPEN/corpus/CWB/vrt/"
 af = glob.glob(VRT_PATH + '/*.vrt')

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-
-import json, random
+import json
+import random
 from cqpapi import Cqp
-#-*-coding:utf8-*-
+# -*- coding: utf-8 -*-
 import argparse
 
 parser = argparse.ArgumentParser(description="test")
@@ -37,15 +37,6 @@ if sampling_num == 0:
     sampling_num is None
 
 
-
-
-#conclst = []
-#for corpus_name in corpus_names:
-#    cqp = Cqp(corpus_name=corpus_name, auth=auth, window_size=window_size)
-#    cqp.find(token=token, show_pos=show_pos, rsize=rsize)
-#    conclst += cqp.conclst
-#print json.dumps(cqp.conclst)
-
 conclst = []
 for corpus_name in corpus_names:
     cqp = Cqp(corpus_name=corpus_name, auth=auth, window_size=window_size)
@@ -56,16 +47,3 @@ if sampling_num:
         sampling_num = len(conclst)
     conclst = random.sample(conclst, sampling_num)
 print json.dumps(conclst)
-
-#from cqpapi import Cqp
-#import sys
-#
-#args =  sys.argv
-#if len(args) != 2:
-#    raise Exception('This script takes exactly one argument!')
-#
-#arg = args[1]
-#
-#cqp = Cqp('asbc')
-#cqp.find(u'今天')
-#print cqp.conclst

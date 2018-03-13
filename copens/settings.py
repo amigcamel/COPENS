@@ -1,18 +1,9 @@
 # -*- coding: utf-8 -*-
+import os
+import glob
 
-from registration_defaults.settings import *
-"""
-Django settings for copens project.
+from registration_defaults.settings import REGISTRATION_TEMPLATE_DIR
 
-For more information on this file, see
-https://docs.djangoproject.com/en/1.6/topics/settings/
-
-For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.6/ref/settings/
-"""
-
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os, glob
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # Quick-start development settings - unsuitable for production
@@ -29,16 +20,6 @@ TEMPLATE_DEBUG = DEBUG
 ALLOWED_HOSTS = ['*']
 
 SITE_ID = 1
-
-#if DEBUG:
-#    EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
-
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-
-# EMAIL_HOST_USER = 'lope.cwm@gmail.com'
-# EMAIL_HOST_PASSWORD = 'C=-h>.\WKn[<9/)#}$es-Jl.?7f[(\)^i!:;Z;QR(i\:,pe=uh'
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "localhost"
@@ -125,8 +106,6 @@ STATICFILES_DIRS = (os.path.join(
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_all')
 
 
-
-#TEMPLATE PATH
 TEMPLATE_DIRS = (
     REGISTRATION_TEMPLATE_DIR,
     os.path.join(BASE_DIR, 'registration_defaults/templates/registration'
@@ -155,14 +134,6 @@ ENDLESS_PAGINATION_PER_PAGE = 100
 LOGIN_URL = '/login/'
 
 UPLOAD_FILE_DIRS = os.path.join(BASE_DIR, 'upload_files')
-
-#class InvalidString(str):
-#    def __mod__(self, other):
-#        from django.template.base import TemplateSyntaxError
-#        raise TemplateSyntaxError(
-#            "Undefined variable or unknown value for: \"%s\"" % other)
-#
-#TEMPLATE_STRING_IF_INVALID = InvalidString("%s")
 
 FACEBOOK_APP_ID = ''
 FACEBOOK_APP_SECRET = ''

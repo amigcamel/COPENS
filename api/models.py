@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+
 class Ptt(object):
     def __init__(self, post_time, title, content):
         self.post_time = post_time

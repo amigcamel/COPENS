@@ -17,7 +17,6 @@ sys.path.append(CUR_PATH)
 
 
 # Keyness
-#FDIST_PATH = os.path.join(CUR_PATH, "misc/fdist")
 FDIST_PATH = '/var/www/copens/misc/fdist'
 
 
@@ -113,7 +112,7 @@ def getThesaurus(word):
 
         # sort the rest of words
         d = sorted(word_sim_dict.items(), key=lambda x: x[1], reverse=True)
-        word_sim_list += [word for word, sim in d]
+        word_sim_list += [word_ for word_, sim_ in d]
 
         word_sim_list = word_sim_list[:9]
     return word_sim_list
@@ -191,7 +190,7 @@ def getCollocation(query, corp_lst, algo_lst, stopword_filter=None):
                             con.append(i)
                 except StopIteration:
                     break
-            if not resdic.has_key(ct):
+            if ct not in resdic:
                 resdic[ct] = dict()
             resdic[ct][a] = con
 
@@ -199,8 +198,8 @@ def getCollocation(query, corp_lst, algo_lst, stopword_filter=None):
 
 
 # Concordance
-#from cqpapi import Cqp
-#import random
+# from cqpapi import Cqp
+# import random
 # def getConcordance(corpus_names, query, window_size=6, show_pos=False, rsize=None, auth=False, sampling_num=None):
 #    query = convertCQL(query)
 #    if not isinstance(corpus_names, list):

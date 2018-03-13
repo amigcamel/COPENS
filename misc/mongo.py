@@ -12,12 +12,3 @@ def mongoDB(db, collection=None):
     else:
         output = client[db]
     return output
-
-
-# This is used for accessing mongodb without authentication
-#from pymongo import Connection
-#def connect(db, collection):
-#       C = Connection(host='localhost', port=27017)
-#       output = C[db][collection]
-#       C.close()
-#       return output

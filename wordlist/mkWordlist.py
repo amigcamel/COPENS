@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
+import glob
+import re
+import os
 
-
-import glob, re, os, nltk
+import nltk
 from pymongo import Connection
+
 C = Connection(host='localhost', port=27017)
 DB = C['copen_wordlist']
 

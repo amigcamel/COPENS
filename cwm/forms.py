@@ -13,8 +13,7 @@ from django import forms
 CHOICE = (
     (u'新聞', (('cna', '中央通訊社'), ('asbc', '中研院平衡語料庫'))),
     (u'社會網絡', (('plurk', u'噗浪'), ('ptt', u'批踢踢'))),
-    (u'政治法律', (('president', u'總統文告'), ('sunflower', u'太陽花學運'), ('ly',
-                                                                 u'立法院公報'))),
+    (u'政治法律', (('president', u'總統文告'), ('sunflower', u'太陽花學運'), ('ly', u'立法院公報'))),
     (u'兒童習得', (('tccm', '台灣兒童語言語料庫'), ('textbook', u'國小教科書'))),
     (u'口語言談', (('ntuspk', '台大口語語料庫'), )),
     (u'成語語料', (('chinatext', '網路新聞語料'), )),

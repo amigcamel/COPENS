@@ -5,7 +5,6 @@ from cwm.forms import DB_CHOICE
 from cwm.copensTools import getKeyness
 from cwm.copensTools import getThesaurus
 from cwm.copensTools import getSketch
-#from rest_framework import viewsets
 from django.http import HttpResponse
 # from django.http import JsonResponse --> works for django > 1.7
 
@@ -63,12 +62,7 @@ def keyness(request, query, tar_corp):
 def thesaurus(request, word):
     res = getThesaurus(word)
 
-    #    paginator = Paginator(res, 2)
-    ##    page = paginator.page(1)
-    #    page = paginator.page(int(request.GET.get('page', '1')))
-    #    serializer = PaginationSerializer(instance=page, context={'request':request})
     return HttpResponse(jsonDump(res))
-    return Response(serializer.data)
 
 
 @api_view(['GET'])

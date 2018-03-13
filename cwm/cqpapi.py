@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
-
+from __future__ import division
 import re
 import itertools
-#-*-coding:utf8-*-
-from __future__ import division
+
 from CWB.CL import Corpus
 import PyCQP_interface
 
-import re
 
 # This setting is extremely important! The default value is 40, which means the maximum time a user can request is 40 second, but this will not suffice the condition that a user query some high frequency word like '今天' (because usually it takes more than a minute to finish querying).
 PyCQP_interface.cMaxRequestProcTime = 240
@@ -18,8 +16,7 @@ except Exception:
     CHOICE = (
         (u'新聞', (('cna', '中央通訊社'), ('asbc', '中研院平衡語料庫'))),
         (u'社會網絡', (('plurk', u'噗浪'), ('ptt', u'批踢踢'))),
-        (u'政治法律', (('president', u'總統文告'), ('sunflower', u'太陽花學運'),
-                   ('ly', u'立法院公報'))),
+        (u'政治法律', (('president', u'總統文告'), ('sunflower', u'太陽花學運'), ('ly', u'立法院公報'))),
         (u'兒童習得', (('tccm', '台灣兒童語言語料庫'), ('textbook', u'國小教科書'))),
         (u'口語言談', (('ntuspk', '台大口語語料庫'), )),
         #    (u'世界中文', (('china', u'中國'), ('hongkong', u'香港'), ('singapore', u'新加坡'))),
@@ -152,9 +149,6 @@ class Cqp(object):
                                                       end))
             self.conclst.append(output)
 
-            #self.conclst.sort(key=lambda x:x['post_time'], reverse=True)
-
-
 #        os.system('kill -9 $(pidof cqp)')
 
 ###############
@@ -176,7 +170,6 @@ def convertCQL(string):
         for i in res:
             for j in i:
                 if j != '':
-                    #output += i
                     if 'x' in j:
                         output += j
                     else:

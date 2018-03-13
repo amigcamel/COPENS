@@ -11,9 +11,6 @@ from registration.views import ActivationView as BaseActivationView
 from registration.views import RegistrationView as BaseRegistrationView
 
 
-import time
-
-
 class RegistrationView(BaseRegistrationView):
     """
     A registration backend which follows a simple workflow:
@@ -88,9 +85,9 @@ class RegistrationView(BaseRegistrationView):
             username, email, password, site)
         signals.user_registered.send(
             sender=self.__class__, user=new_user, request=request)
-        subject = 'COPEN registration notification'
-        text = '"%s | %s | %s | %s" ' % (username, email, password,
-                                         time.ctime())
+        # subject = 'COPEN registration notification'
+        # text = '"%s | %s | %s | %s" ' % (username, email, password,
+        #                                  time.ctime())
         # gmail(subject, text)
         return new_user
 
