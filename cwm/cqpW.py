@@ -21,9 +21,9 @@ auth = args.auth
 token = args.token
 show_pos = args.showpos
 if show_pos == 0:
-    show_pos == False
+    show_pos is False
 elif show_pos == 1:
-    show_pos == True
+    show_pos is True
 rsize = args.rsize
 if rsize == 0:
     rsize = None

@@ -41,7 +41,7 @@ class Cqp(object):
         self.window_size = window_size
         self.corpus_name = corpus_name
         if self.corpus_name == 'copener':
-            if auth == False:
+            if auth is False:
                 raise Exception('Not auth!')
 
     def find(self, token, show_pos=False, rsize=None):
@@ -96,9 +96,9 @@ class Cqp(object):
         for attr in s_attrs:
             if attr != 's':
                 s_attrs_dic[attr] = corpus.attribute(attr, "s")
-            if show_pos == True:
+            if show_pos is True:
                 postags = corpus.attribute("pos", "p")
-            elif show_pos == False:
+            elif show_pos is False:
                 pass
 
         for line in self.results:
@@ -113,7 +113,7 @@ class Cqp(object):
                 rw = words[end:end + self.window_size]
             qw = words[start:end]
 
-            if show_pos == True:
+            if show_pos is True:
                 lp = postags[start - self.window_size:start]
                 rp = postags[end:end + self.window_size]
                 qp = postags[start:end]
@@ -131,7 +131,7 @@ class Cqp(object):
                     for word, pos in zip(rw, rp)
                 ])
 
-            elif show_pos == False:
+            elif show_pos is False:
                 left = ' '.join(['%s' % word for word in lw])
                 mid = ' '.join(['%s' % word for word in qw])
                 right = ' '.join(['%s' % word for word in rw])

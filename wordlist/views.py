@@ -13,7 +13,7 @@ def wordlist(request, stopword_level=None):
         form = WordlistForm(request.POST)
         if form.is_valid():
             stopwords = form.cleaned_data['stopwords']
-            if stopwords == True:
+            if stopwords is True:
                 stopword_level = form.cleaned_data['stopword_level']
             punctuations = form.cleaned_data['punctuations']
             topnword = form.cleaned_data['topnword']

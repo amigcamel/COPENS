@@ -218,10 +218,10 @@ def getWordlist(database,
                 stopword_level=None):
     if not isinstance(database, list):
         raise TypeError('database must be a list')
-    if stopwords == True:
+    if stopwords is True:
         if stopword_level == None:
             raise Exception(
-                'stopword_level should be specify when stopwords == True')
+                'stopword_level should be specify when stopwords is True')
     if stopwords:
         sw = mongoDB('copen_wordlist', 'asbc').find().limit(stopword_level)
         sw = [i['tok'] for i in sw]
@@ -234,9 +234,9 @@ def getWordlist(database,
             while cnt < topnword:
                 dic = res.next()
                 punc = dic['punc']
-                if punc == punctuations == True:
+                if punc == punctuations is True:
                     continue
-                if stopwords == True:
+                if stopwords is True:
                     if dic['tok'] in sw:
                         continue
                 con.append(dic)
