@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import os
 import smtplib
 
 
@@ -7,12 +7,11 @@ def gmail(subject, text):
     # references:
     # http://www.nixtutor.com/linux/send-mail-through-gmail-with-python/
     # http://stackoverflow.com/questions/7232088/python-subject-not-shown-when-sending-email-using-smtplib-module
-    fromaddr = ''
-    toaddrs = ['', '']
+    username = os.environ['email_user']
+    password = os.environ['email_pass']
+    fromaddr = username
+    toaddrs = [username]
     msg = 'Subject: %s\n\n%s' % (subject, text)
-
-    username = '.not'
-    password = None
 
     server = smtplib.SMTP('smtp.gmail.com:587')
     server.starttls()
