@@ -29,3 +29,10 @@ http://clic.cimec.unitn.it/composes/toolkit/installation.html
 ### Installing BRAT
 Please visit [Brat's official webpage](http://brat.nlplab.org/)
 
+
+### Deploy
+
+Using uWSGI to start a standalone service
+
+    $ pip install uwsgi
+    $ uwsgi --master --http 0.0.0.0:8000 --module copens.wsgi --static-map /static_cwm=static_all --process 4
