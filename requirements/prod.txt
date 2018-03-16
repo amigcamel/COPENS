@@ -18,3 +18,4 @@ sparsesvd==0.2.2
 Unidecode==0.4.17
 git+https://github.com/composes-toolkit/dissect
 nltk==3.2.5
+requests==2.18.4

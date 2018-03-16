@@ -38,7 +38,7 @@ urlpatterns = patterns(
         name='download_wordlist'),
     url('^concordance/(\w+)/$', 'cwm.views.con_align'),
     url('^contact/$', contact, name='contact'),
-    url('^con_source/([-.:_a-zA-Z0-9]{32})/$', 'cwm.views.con_source'),
+    url('^con_source/(\w+_\d+_\d+)/$', 'cwm.views.con_source'),
     url('^concordance/(\w+)/$', 'cwm.views.con_align'),
     url('^concordance$', concordance, name='concordance'),
     url('^sketch$', sketch, name='sketch'),

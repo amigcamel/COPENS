@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from collections import Counter
-import subprocess
-import json
+
+import requests
+
 from copensTools import getKeyness
 from copensTools import getThesaurus
 from copensTools import getSketch
@@ -23,14 +24,12 @@ from cwm.forms import SketchForm
 from cwm.forms import KeynessForm
 from cwm.forms import ColloForm
 
-from ajilock.lock import Cypher
 from CWB.CL import Corpus
-cy = Cypher()
 
 
 def con_source(request, qpos):
     window_size = 100
-    corp_name, start, end = cy.decrypt(qpos)
+    corp_name, start, end = qpos.split('_')
     start, end = int(start), int(end)
     corpus = Corpus(
         corp_name.upper(), registry_dir='/usr/local/share/cwb/registry')
@@ -75,9 +74,6 @@ def con_source(request, qpos):
                 sent = '%s: %s' % (a[-1], ' '.join(words[a[0]:a[1]]))
             output += sent + '<br>'
 
-
-#        output = ['%s: %s' % (i[-1], ' '.join(words[i[0]:i[1]])) for i in attr_con]
-#        output = '<br>'.join(output)
         return HttpResponse(output)
 
     return HttpResponse(lw + qw + rw)
@@ -122,33 +118,30 @@ def concordance(request, show_pos=0, rsize=0, auth=1, sampling_num=0):
         if concform.is_valid():
             window_size = concform.cleaned_data['window_size']
             display_num = concform.cleaned_data['display_num']
-            if concform.cleaned_data['sampling']:
-                sampling_num = concform.cleaned_data['sampling_num']
+            # if concform.cleaned_data['sampling']:
+            #     sampling_num = concform.cleaned_data['sampling_num']
             if concform.cleaned_data['pos']:
                 show_pos, context['pos'] = 1, True
             query = request.session.get('query')
 
-            if not request.user.is_authenticated():
-                auth, rsize = 0, 5000 - 1
+            # if not request.user.is_authenticated():
+            #     auth, rsize = 0, 5000 - 1
             corpus_names = [
                 corp_raw for corp_raw, corp_name in request.session['database']
             ]
             corpus_names = ' '.join(corpus_names)
-            #            conclst = getConcordance(corpus_names=corpus_names,
-            #                                 query=query,
-            #                                 window_size=window_size,
-            #                                 show_pos=show_pos,
-            #                                 rsize=rsize,
-            #                                 auth=auth,
-            #                                 sampling_num=sampling_num)
 
-            cmd = u'/home/achiii/.pyenv/versions/copens/bin/python /var/www/copens/cwm/cqpW.py -c %s -t %s -w %d -r %d -p %d -a %d -s %d' % (
-                corpus_names, query, window_size, rsize, show_pos, auth,
-                sampling_num)
-
-            cmd = cmd.encode('utf8').split()
-            conclst = subprocess.check_output(cmd)
-            conclst = json.loads(conclst)
+            params = {
+                'corpus_names': corpus_names,
+                'token': query,
+                'window_size': window_size,
+                'rsize': rsize,
+                'show_pos': show_pos
+            }
+            url = 'http://127.0.0.1:7878/cwb'
+            resp = requests.get(url, params)
+            assert resp.status_code == 200
+            conclst = resp.json()
 
             request.session['conclst'] = conclst
             corp_det = Counter([item['corp_name'] for item in conclst])
