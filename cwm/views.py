@@ -24,59 +24,12 @@ from cwm.forms import SketchForm
 from cwm.forms import KeynessForm
 from cwm.forms import ColloForm
 
-from CWB.CL import Corpus
-
 
 def con_source(request, qpos):
-    window_size = 100
-    corp_name, start, end = qpos.split('_')
-    start, end = int(start), int(end)
-    corpus = Corpus(
-        corp_name.upper(), registry_dir='/usr/local/share/cwb/registry')
-    words = corpus.attribute('word', 'p')
-    corp_len = len(words)
-    if start - window_size < 0:
-        lb = 0
-    else:
-        lb = start - window_size
-    if end + window_size > corp_len:
-        rb = corp_len - 1
-    else:
-        rb = end + window_size
-
-    lw = ''.join(words[lb:start])
-    qw = '<span style="color:red;font-size:24px;">' + ''.join(
-        words[start:end]) + '</span>'
-    rw = ''.join(words[end:rb])
-    if corp_name == 'tccm' or corp_name == 'ntuspk':
-        if corp_name == 'tccm':
-            s_attrs = corpus.attribute('s_addresser', 's')
-        if corp_name == 'ntuspk':
-            s_attrs = corpus.attribute('s_speaker', 's')
-        top = s_attrs.cpos2struc(lb)
-        top = s_attrs[top]
-        bottom = s_attrs.cpos2struc(rb)
-        bottom = s_attrs[bottom]
-
-        attr_con = []
-        for attr in s_attrs:
-            if attr[0] >= top[0] and attr[1] <= bottom[1]:
-                attr_con.append(attr)
-        output = ''
-        for a in attr_con:
-            if start in xrange(a[0], a[1]):
-                sent =\
-                    a[-1] + ': ' +\
-                    ' '.join(words[a[0]:start]) + ' ' +\
-                    '<span style="color:red;font-size:24px;">' + ' '.join(words[start:end]) + '</span>' + ' ' +\
-                    ' '.join(words[end:a[1]])
-            else:
-                sent = '%s: %s' % (a[-1], ' '.join(words[a[0]:a[1]]))
-            output += sent + '<br>'
-
-        return HttpResponse(output)
-
-    return HttpResponse(lw + qw + rw)
+    qpos = qpos.strip('/')
+    resp = requests.get('http://127.0.0.1:7878/con_source', {'qpos': qpos})
+    assert resp.status_code == 200
+    return HttpResponse(resp.text)
 
 
 def make_context(request):
