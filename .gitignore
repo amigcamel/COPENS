@@ -6,3 +6,4 @@ log/
 dissect/dist/*
 dissect/build/*
 .envrc
+mysql/*
