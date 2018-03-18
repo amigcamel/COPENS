@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
-import os
-
+from django.conf import settings
 from pymongo import MongoClient
 
 
 def mongoDB(db, collection=None):
-    client = MongoClient(os.environ['mongo_host'])
+    client = MongoClient(settings.MONGO_HOST)
     client.admin.authenticate(
-        os.environ['mongo_user'], os.environ['mongo_pass'])
+        settings.MONGO_USER, settings.MONGO_PASS)
     if collection:
         output = client[db][collection]
     else:

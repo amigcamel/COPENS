@@ -1,10 +1,15 @@
 # -*- coding: utf-8 -*-
 import os
 import glob
+from ConfigParser import ConfigParser
 
 from registration_defaults.settings import REGISTRATION_TEMPLATE_DIR
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+config = ConfigParser()
+config.read(os.path.join(BASE_DIR, 'copens.ini'))
+
 
 SECRET_KEY = 'b^t*u5vhgwcrw-q9dy0tqo^^_l@#32=#17ss2^t0wt@a7yg#&9'
 
@@ -69,8 +74,12 @@ WSGI_APPLICATION = 'copens.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'copens',
+        'USER': 'copens',
+        'PASSWORD': 'copens',
+        'HOST': 'copens_db',
+        'PORT': 3306,
     }
 }
 
@@ -118,8 +127,8 @@ LOGIN_URL = '/login/'
 
 UPLOAD_FILE_DIRS = os.path.join(BASE_DIR, 'upload_files')
 
-FACEBOOK_APP_ID = os.environ['fb_app_id']
-FACEBOOK_APP_SECRET = os.environ['fb_app_secret']
+FACEBOOK_APP_ID = config.get('fb', 'app_id')
+FACEBOOK_APP_SECRET = config.get('fb', 'app_secret')
 
 AUTH_PROFILE_MODULE = 'django_facebook.FacebookProfile'
 FACEBOOK_LOGIN_DEFAULT_REDIRECT = '/copens'
@@ -158,3 +167,10 @@ LOGGING = {
         }
     },
 }
+
+MAIL_USER = config.get('mail', 'user')
+MAIL_PASS = config.get('mail', 'pass')
+
+MONGO_HOST = config.get('mongo', 'host')
+MONGO_USER = config.get('mongo', 'user')
+MONGO_PASS = config.get('mongo', 'pass')

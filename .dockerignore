@@ -1,0 +1,8 @@
+.git
+Dockerfile
+.dockerignore
+.DS_Store
+.gitignore
+README.md
+ipython_config.py
+db.sqlite3
