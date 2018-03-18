@@ -11,7 +11,7 @@ config = ConfigParser()
 config.read(os.path.join(BASE_DIR, 'copens.ini'))
 
 
-SECRET_KEY = 'b^t*u5vhgwcrw-q9dy0tqo^^_l@#32=#17ss2^t0wt@a7yg#&9'
+SECRET_KEY = config.get('django', 'secret_key')
 
 DEBUG = True
 
