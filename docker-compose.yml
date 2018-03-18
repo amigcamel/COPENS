@@ -1,0 +1,33 @@
+version: '3.1'
+
+services:
+  copens:
+    restart: always
+    build: . 
+    depends_on:
+      - copens_db
+    command: >
+      bash -c "python manage.py collectstatic --noinput
+      && uwsgi --uid root --master --http 0.0.0.0:8000 --module copens.wsgi --static-map /static_cwm=static_all --process 4"
+    ports:
+      - '8000:8000'
+    logging:
+      options:
+        max-size: '10m'
+        max-file: '3'
+      driver: json-file
+  copens_db:
+    image: library/mariadb 
+    environment:
+      - MYSQL_ROOT_PASSWORD=copens
+      - MYSQL_DATABASE=copens
+      - MYSQL_USER=copens
+      - MYSQL_PASSWORD=copens
+    ports:
+      - '33061:3306'
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci --init-connect='SET NAMES UTF8;' --innodb-flush-log-at-trx-commit=0
+    logging:
+      options:
+        max-size: '10m'
+        max-file: '3'
+      driver: json-file
