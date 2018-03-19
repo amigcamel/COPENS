@@ -8,7 +8,7 @@ services:
       - copens_db
     command: >
       bash -c "python manage.py collectstatic --noinput
-      && uwsgi --uid root --master --http 0.0.0.0:8000 --module copens.wsgi --static-map /static_cwm=static_all --process 4"
+      && uwsgi --uid root --master --http 0.0.0.0:8000 --module copens.wsgi --static-map /static_cwm=static_all --process 4 --manage-script-name --mount=/copens=copens/wsgi.py"
     ports:
       - '8000:8000'
     logging:
