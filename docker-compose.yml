@@ -32,3 +32,16 @@ services:
         max-size: '10m'
         max-file: '3'
       driver: json-file
+  copens_engine:
+    restart: always
+    build: ./copens-engine
+    volumes:
+      - /usr/local/share/cwb/registry:/usr/local/share/cwb/registry 
+      - /var/local/LOPEN/corpus/CWB/data:/var/local/LOPEN/corpus/CWB/data
+    ports:
+      - '7878:7878'
+    logging:
+      options:
+        max-size: '10m'
+        max-file: '3'
+      driver: json-file
