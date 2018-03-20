@@ -27,7 +27,7 @@ from cwm.forms import ColloForm
 
 def con_source(request, qpos):
     qpos = qpos.strip('/')
-    resp = requests.get('http://lopen:7878/con_source', {'qpos': qpos})
+    resp = requests.get('http://copens_engine:7878/con_source', {'qpos': qpos})
     assert resp.status_code == 200
     return HttpResponse(resp.text)
 
@@ -91,7 +91,7 @@ def concordance(request, show_pos=0, rsize=0, auth=1, sampling_num=0):
                 'rsize': rsize,
                 'show_pos': show_pos
             }
-            url = 'http://lopen:7878/cwb'
+            url = 'http://copens_engine:7878/cwb'
             resp = requests.get(url, params)
             assert resp.status_code == 200
             conclst = resp.json()
