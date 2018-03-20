@@ -38,8 +38,6 @@ services:
     volumes:
       - /usr/local/share/cwb/registry:/usr/local/share/cwb/registry 
       - /var/local/LOPEN/corpus/CWB/data:/var/local/LOPEN/corpus/CWB/data
-    ports:
-      - '7878:7878'
     logging:
       options:
         max-size: '10m'
