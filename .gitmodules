@@ -1,0 +1,3 @@
+[submodule "copens-engine"]
+	path = copens-engine
+	url = https://github.com/amigcamel/copens-engine.git
