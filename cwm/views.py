@@ -82,7 +82,7 @@ def concordance(request, show_pos=0, rsize=0, auth=1, sampling_num=0):
             corpus_names = [
                 corp_raw for corp_raw, corp_name in request.session['database']
             ]
-            corpus_names = ' '.join(corpus_names)
+            corpus_names = ','.join(corpus_names)
 
             params = {
                 'corpus_names': corpus_names,
