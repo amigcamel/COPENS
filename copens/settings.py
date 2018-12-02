@@ -172,6 +172,7 @@ MAIL_USER = config.get('mail', 'user')
 MAIL_PASS = config.get('mail', 'pass')
 
 MONGO_HOST = config.get('mongo', 'host')
+MONGO_PORT = config.getint('mongo', 'port')
 MONGO_USER = config.get('mongo', 'user')
 MONGO_PASS = config.get('mongo', 'pass')
 

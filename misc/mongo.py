@@ -4,9 +4,7 @@ from pymongo import MongoClient
 
 
 def mongoDB(db, collection=None):
-    client = MongoClient(settings.MONGO_HOST)
-    client.admin.authenticate(
-        settings.MONGO_USER, settings.MONGO_PASS)
+    client = MongoClient(settings.MONGO_HOST, settings.MONGO_PORT)
     if collection:
         output = client[db][collection]
     else:
