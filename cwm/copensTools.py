@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import division
-from collections import OrderedDict
+from collections import OrderedDict, defaultdict
+import sqlite3
+import unicodedata
+import string
+from django.conf import settings
 from composes.similarity.cos import CosSimilarity
 from composes.semantic_space.space import Space
 from misc.mongo import mongoDB
@@ -228,25 +232,30 @@ def getWordlist(database,
         if stopword_level is None:
             raise Exception(
                 'stopword_level should be specify when stopwords is True')
+    conn = sqlite3.connect(settings.TOKENS_DB_PATH)
     if stopwords:
-        sw = mongoDB('copen_wordlist', 'asbc').find().limit(stopword_level)
-        sw = [i['tok'] for i in sw]
+        sql = '''SELECT token FROM freqdist WHERE db='asbc' ORDER BY count DESC LIMIT ?'''  # noqa
+        r = conn.execute(sql, (stopword_level, ))
+        sw = r.fetchall()
+        sw = [i[0] for i in sw]
     output = dict()
+    token_num_dic = defaultdict(int)
     for dr, dn in database:
+        if not token_num_dic[dr]:
+            r = conn.execute('SELECT SUM(count) FROM freqdist WHERE db=?', (dr, ))  # noqa
+            token_num_dic[dr] += r.fetchall()[0][0]
         try:
-            res = mongoDB('copen_wordlist', dr).find({}, {'_id': 0})
-            cnt = 0
+            sql = 'SELECT token, count FROM freqdist WHERE db=? ORDER BY count DESC'  # noqa
+            res = conn.execute(sql, (dr, ))
             con = []
-            while cnt < topnword:
-                dic = res.next()
-                punc = dic['punc']
-                if punc == punctuations is True:
+            while len(con) < topnword:
+                token, count = next(res)
+                if punctuations and (unicodedata.normalize('NFKD', token) in string.punctuation):
                     continue
-                if stopwords is True:
-                    if dic['tok'] in sw:
-                        continue
-                con.append(dic)
-                cnt += 1
+                if stopwords and (token in sw):
+                    continue
+                freq = '%.4f%%' % (count / token_num_dic[dr] * 100)
+                con.append(dict(tok=token, occ=count, freq=freq))
             output[dn] = con
         except StopIteration:
             pass
