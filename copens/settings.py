@@ -174,3 +174,5 @@ MAIL_PASS = config.get('mail', 'pass')
 MONGO_HOST = config.get('mongo', 'host')
 MONGO_USER = config.get('mongo', 'user')
 MONGO_PASS = config.get('mongo', 'pass')
+
+TOKENS_DB_PATH = os.path.join(BASE_DIR, 'tokens.db')
